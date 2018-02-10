@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import net.smappz.arcadia.util.FloatUtil;
+
 
 class AirFighter extends Actor {
     private enum Pitch {
@@ -64,7 +66,7 @@ class AirFighter extends Actor {
         float curX = sprite.getX() + sprite.getWidth()/2;
         float curY = sprite.getY() + sprite.getHeight()/2;
 
-        if (equals(curX, targetX) && equals(curY, targetY)) {
+        if (FloatUtil.equals(curX, targetX) && FloatUtil.equals(curY, targetY)) {
             return; // no need to move
         }
 
@@ -99,11 +101,6 @@ class AirFighter extends Actor {
         curX -= sprite.getWidth()/2;
         curY -= sprite.getHeight()/2;
         sprite.setPosition(curX, curY);
-        System.out.println(String.format("x=%f, y=%f", curX, curY));
-    }
-
-    private static boolean equals(float x, float y) {
-        return Math.abs(x - y) < 0.02f;
     }
 
     @Override

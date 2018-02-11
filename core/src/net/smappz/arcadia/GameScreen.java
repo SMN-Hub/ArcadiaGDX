@@ -8,9 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
+import net.smappz.arcadia.util.Point;
 import net.smappz.arcadia.util.Route;
 
-class GameScreen extends ScreenAdapter {
+class GameScreen extends ScreenAdapter implements GameListener {
     private Stage stage;
     private AirFighter fighter;
     public static final int WIDTH = 1280;
@@ -19,7 +20,7 @@ class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         stage = new Stage(new StretchViewport(WIDTH, HEIGHT)); //ScreenViewport());
-        fighter = new AirFighter();
+        fighter = new AirFighter(this);
 
         stage.addActor(fighter);
         createEnemies();
@@ -27,10 +28,15 @@ class GameScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
         stage.addListener(new InputListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y,
-                                     int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                fighter.setShooting(true);
                 fighter.moveTo(x, y);
                 return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                fighter.setShooting(false);
             }
 
             @Override
@@ -68,5 +74,10 @@ class GameScreen extends ScreenAdapter {
     @Override
     public void dispose () {
         stage.dispose();
+    }
+
+    @Override
+    public void friendlyShoot(Point origin, Point speed) {
+
     }
 }

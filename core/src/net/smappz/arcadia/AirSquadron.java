@@ -2,8 +2,8 @@ package net.smappz.arcadia;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 
-import net.smappz.arcadia.util.Driver;
 import net.smappz.arcadia.util.Route;
+import net.smappz.arcadia.util.RouteDriver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ class AirSquadron extends Group{
         for (int l=0; l<nb; l++) {
             Route r = new Route(route);
             if (l > 0) {
-                Driver.backWard(r, l*DECAL);
+                RouteDriver.backWard(r, l*DECAL);
             }
             AirEnemy ae = new AirEnemy(plane, r);
             addEnemy(ae);

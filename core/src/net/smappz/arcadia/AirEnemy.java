@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-import net.smappz.arcadia.util.Driver;
 import net.smappz.arcadia.util.Route;
+import net.smappz.arcadia.util.RouteDriver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ class AirEnemy extends Actor {
     private Map<Pitch,TextureAtlas.AtlasRegion> regions = new HashMap<>();
     private Pitch pitch = Pitch.Flat;
     private float pitchDuration = -1;
-    private final Driver driver;
+    private final RouteDriver driver;
     private boolean cycle = false;
 
     AirEnemy(int plane, Route route) {
@@ -31,12 +31,10 @@ class AirEnemy extends Actor {
         regions.put(Pitch.Flat, textureAtlas.findRegion(String.format("00%d2", plane)));
         regions.put(Pitch.Right, textureAtlas.findRegion(String.format("00%d3", plane)));
 
-        driver = new Driver(route);
-
         sprite = new Sprite(regions.get(pitch));
-        sprite.setPosition(driver.getPosition().getX(), driver.getPosition().getY());
         sprite.scale(2f);
 
+        driver = new RouteDriver(this, route);
         restart();
     }
 
@@ -51,7 +49,16 @@ class AirEnemy extends Actor {
 
     void restart() {
         driver.start();
-        sprite.setRotation(driver.getAngle() + ROUTE_TO_SPRITE);
+    }
+
+    @Override
+    protected void positionChanged () {
+        sprite.setCenter(getX(), getY());
+    }
+
+    @Override
+    protected void rotationChanged () {
+        sprite.setRotation(getRotation() + ROUTE_TO_SPRITE);
     }
 
     @Override
@@ -64,16 +71,10 @@ class AirEnemy extends Actor {
         }
         // update position
         driver.act(delta, SPEED);
-        // center to sprite position
-        float curX = driver.getPosition().getX() - sprite.getWidth()/2;
-        float curY =  driver.getPosition().getY() - sprite.getHeight()/2;
-        sprite.setPosition(curX, curY);
 
         // update orientation
-        float rotation = driver.getRotation();
+        float rotation = driver.getDirection();
         if (rotation != 0) {
-            sprite.setRotation(driver.getAngle() + ROUTE_TO_SPRITE);
-
             // update pitch
             pitchDuration = 0;
             if ((rotation > 0 && rotation < 180) || (rotation < -180)) {

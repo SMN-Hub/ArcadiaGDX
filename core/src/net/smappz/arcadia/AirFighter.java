@@ -7,23 +7,31 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import net.smappz.arcadia.util.FloatUtil;
+import net.smappz.arcadia.util.ManualDriver;
+import net.smappz.arcadia.util.Point;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 class AirFighter extends Actor {
+    private static final Point INITIAL_POSITION = new Point(1000, 200);
     private static final float SPEED = 800.f;
     private static final float PITCH_LEVEL_1 = 100f;
     private static final float PITCH_LEVEL_2 = 200f;
+    private static final float SHOOT_FREQUENCY = 1f;
+    private static final Point SHOOT_SPEED = new Point(-1000f, 0f);
 
     private Sprite sprite;
-    private float targetX = 1000;
-    private float targetY = 100;
     private Pitch pitch = Pitch.Flat;
     private Map<Pitch,TextureAtlas.AtlasRegion> regions = new HashMap<>();
+    private boolean shooting = false;
+    private float lastShoot = 0f;
+    private final GameListener listener;
+    private final ManualDriver driver;
 
-    AirFighter() {
+    AirFighter(GameListener listener) {
+        this.listener = listener;
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("PlanesSmall.atlas"));
         regions.put(Pitch.Left2, textureAtlas.findRegion("0001"));
         regions.put(Pitch.Left, textureAtlas.findRegion("0002"));
@@ -32,13 +40,19 @@ class AirFighter extends Actor {
         regions.put(Pitch.Right2, textureAtlas.findRegion("0005"));
 
         sprite = new Sprite(regions.get(pitch));
-        sprite.setPosition(targetX, targetY);
         sprite.scale(1f);
+
+        driver = new ManualDriver(this, INITIAL_POSITION);
+        driver.start();
+    }
+
+    void setShooting(boolean shooting) {
+        this.shooting = shooting;
+        lastShoot = SHOOT_FREQUENCY;
     }
 
     void moveTo(float x, float y) {
-        targetX = x;
-        targetY = y;
+        driver.setTarget(x, y);
     }
 
     private void updateFrame(Pitch newPitch) {
@@ -46,22 +60,26 @@ class AirFighter extends Actor {
         sprite.setRegion(regions.get(pitch));
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
+    @Override
+    protected void positionChanged () {
+        sprite.setCenter(getX(), getY());
+    }
+
     @Override
     public void act (float delta) {
         super.act(delta);
-        // position to center
-        float curX = sprite.getX() + sprite.getWidth()/2;
-        float curY = sprite.getY() + sprite.getHeight()/2;
 
-        if (FloatUtil.equals(curX, targetX) && FloatUtil.equals(curY, targetY)) {
-            return; // no need to move
+        // shoot
+        lastShoot += delta;
+        if (lastShoot > SHOOT_FREQUENCY) {
+            // canon position
+            Point canon = new Point(sprite.getX(), sprite.getY() + sprite.getHeight()/2);
+            listener.friendlyShoot(canon, SHOOT_SPEED);
+            lastShoot = 0;
         }
 
-        float deltaX = targetX - curX;
-        float deltaY = targetY - curY;
-
         // update pitch
+        float deltaY = driver.getDirection();
         Pitch newPitch = Pitch.Flat;
         if (deltaY > PITCH_LEVEL_2)
             newPitch = Pitch.Right2;
@@ -74,21 +92,6 @@ class AirFighter extends Actor {
         if (newPitch != pitch) {
             updateFrame(newPitch);
         }
-
-        // update placement
-        float fullDistance = (float)Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-        float maxDistance = SPEED * delta;
-        if (fullDistance > maxDistance) {
-            curX += deltaX * maxDistance / fullDistance;
-            curY += deltaY * maxDistance / fullDistance;
-        } else {
-            curX = targetX;
-            curY = targetY;
-        }
-        // center to sprite position
-        curX -= sprite.getWidth()/2;
-        curY -= sprite.getHeight()/2;
-        sprite.setPosition(curX, curY);
     }
 
     @Override

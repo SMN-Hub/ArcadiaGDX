@@ -36,4 +36,9 @@ public class Point {
         x = target.x;
         y = target.y;
     }
+
+    public void set(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 }

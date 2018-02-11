@@ -9,6 +9,12 @@ public class Route {
     public Route() {
     }
 
+    public Route(Route r) {
+        for (Point point : r.points) {
+            points.add(new Point(point));
+        }
+    }
+
     public Route addPoint(float x, float y) {
         return addPoint(new Point(x, y));
     }

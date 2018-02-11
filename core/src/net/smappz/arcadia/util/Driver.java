@@ -87,4 +87,16 @@ public class Driver {
             System.out.println(String.format("angle=%f", angle));
         }
     }
+
+    public static void backWard(Route route, float distance) {
+        if (route.size() >= 2) {
+            float deltaX = route.getPoint(1).getX() - route.getPoint(0).getX();
+            float deltaY = route.getPoint(1).getY() - route.getPoint(0).getY();
+            float targetDistance = (float)Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+            route.getPoint(0).decrease(deltaX * distance / targetDistance, deltaY * distance / targetDistance);
+        } else if (route.size() == 1) {
+            route.getPoint(0).decrease(distance, 0);
+        }
+    }
+
 }

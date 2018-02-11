@@ -9,63 +9,57 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import net.smappz.arcadia.util.Driver;
 import net.smappz.arcadia.util.Route;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 class AirEnemy extends Actor {
-    private enum Pitch {
-        Left,
-        Flat,
-        Right;
-
-        private TextureAtlas.AtlasRegion region;
-        public TextureAtlas.AtlasRegion getRegion() {
-            return region;
-        }
-        public void setRegion(TextureAtlas.AtlasRegion region) {
-            this.region = region;
-        }
-    }
-
     private static final float SPEED = 400.f;
-    private static final float TIME_TO_PITCH = 0.2f;
+    private static final float TIME_TO_PITCH = 1.f;
     private static final float ROUTE_TO_SPRITE = 90f;
 
     private Sprite sprite;
+    private Map<Pitch,TextureAtlas.AtlasRegion> regions = new HashMap<>();
     private Pitch pitch = Pitch.Flat;
     private float pitchDuration = -1;
     private final Driver driver;
+    private boolean cycle = false;
 
     AirEnemy(int plane, Route route) {
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("enemy.atlas"));
-        Pitch.Left.setRegion(textureAtlas.findRegion(String.format("00%d1", plane)));
-        Pitch.Flat.setRegion(textureAtlas.findRegion(String.format("00%d2", plane)));
-        Pitch.Right.setRegion(textureAtlas.findRegion(String.format("00%d3", plane)));
+        regions.put(Pitch.Left, textureAtlas.findRegion(String.format("00%d1", plane)));
+        regions.put(Pitch.Flat, textureAtlas.findRegion(String.format("00%d2", plane)));
+        regions.put(Pitch.Right, textureAtlas.findRegion(String.format("00%d3", plane)));
 
         driver = new Driver(route);
 
-        sprite = new Sprite(pitch.getRegion());
+        sprite = new Sprite(regions.get(pitch));
         sprite.setPosition(driver.getPosition().getX(), driver.getPosition().getY());
         sprite.scale(2f);
 
         restart();
     }
 
-    private void updateFrame(Pitch newPitch) {
-        pitch = newPitch;
-        sprite.setRegion(pitch.getRegion());
+    public void setCycle(boolean cycle) {
+        this.cycle = cycle;
     }
 
-    private void restart() {
+    private void updateFrame(Pitch newPitch) {
+        pitch = newPitch;
+        sprite.setRegion(regions.get(pitch));
+    }
+
+    void restart() {
         driver.start();
         sprite.setRotation(driver.getAngle() + ROUTE_TO_SPRITE);
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     public void act (float delta) {
         super.act(delta);
 
         // Cycle execution
-        if (driver.isOver()) {
+        if (cycle && driver.isOver()) {
             restart();
         }
         // update position
@@ -100,6 +94,10 @@ class AirEnemy extends Actor {
     @Override
     public void draw (Batch batch, float parentAlpha) {
         sprite.draw(batch);
+    }
+
+    boolean isOut() {
+        return driver.isOver();
     }
 
 }

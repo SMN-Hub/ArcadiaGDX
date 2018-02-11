@@ -8,42 +8,30 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import net.smappz.arcadia.util.FloatUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 class AirFighter extends Actor {
-    private enum Pitch {
-        Left2,
-        Left1,
-        Flat,
-        Right1,
-        Right2;
-
-        private TextureAtlas.AtlasRegion region;
-        public TextureAtlas.AtlasRegion getRegion() {
-            return region;
-        }
-        public void setRegion(TextureAtlas.AtlasRegion region) {
-            this.region = region;
-        }
-    }
-
     private static final float SPEED = 800.f;
     private static final float PITCH_LEVEL_1 = 100f;
     private static final float PITCH_LEVEL_2 = 200f;
 
     private Sprite sprite;
-    private float targetX = 120;
+    private float targetX = 1000;
     private float targetY = 100;
     private Pitch pitch = Pitch.Flat;
+    private Map<Pitch,TextureAtlas.AtlasRegion> regions = new HashMap<>();
 
     AirFighter() {
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("PlanesSmall.atlas"));
-        Pitch.Left2.setRegion(textureAtlas.findRegion("0001"));
-        Pitch.Left1.setRegion(textureAtlas.findRegion("0002"));
-        Pitch.Flat.setRegion(textureAtlas.findRegion("0003"));
-        Pitch.Right1.setRegion(textureAtlas.findRegion("0004"));
-        Pitch.Right2.setRegion(textureAtlas.findRegion("0005"));
+        regions.put(Pitch.Left2, textureAtlas.findRegion("0001"));
+        regions.put(Pitch.Left, textureAtlas.findRegion("0002"));
+        regions.put(Pitch.Flat, textureAtlas.findRegion("0003"));
+        regions.put(Pitch.Right, textureAtlas.findRegion("0004"));
+        regions.put(Pitch.Right2, textureAtlas.findRegion("0005"));
 
-        sprite = new Sprite(pitch.getRegion());
+        sprite = new Sprite(regions.get(pitch));
         sprite.setPosition(targetX, targetY);
         sprite.scale(1f);
     }
@@ -55,7 +43,7 @@ class AirFighter extends Actor {
 
     private void updateFrame(Pitch newPitch) {
         pitch = newPitch;
-        sprite.setRegion(pitch.getRegion());
+        sprite.setRegion(regions.get(pitch));
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
@@ -78,11 +66,11 @@ class AirFighter extends Actor {
         if (deltaY > PITCH_LEVEL_2)
             newPitch = Pitch.Right2;
         else if (deltaY > PITCH_LEVEL_1)
-            newPitch = Pitch.Right1;
+            newPitch = Pitch.Right;
         else if (deltaY < -PITCH_LEVEL_2)
             newPitch = Pitch.Left2;
         else if (deltaY < -PITCH_LEVEL_1)
-            newPitch = Pitch.Left1;
+            newPitch = Pitch.Left;
         if (newPitch != pitch) {
             updateFrame(newPitch);
         }

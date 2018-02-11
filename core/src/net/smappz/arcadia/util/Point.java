@@ -9,25 +9,27 @@ public class Point {
         this.y = y;
     }
 
-    public float getX() {
-        return x;
+    public Point(Point p) {
+        x = p.x;
+        y = p.y;
     }
 
-    public void setX(float x) {
-        this.x = x;
+    public float getX() {
+        return x;
     }
 
     public float getY() {
         return y;
     }
 
-    public void setY(float y) {
-        this.y = y;
-    }
-
     void increase(float x, float y) {
         this.x += x;
         this.y += y;
+    }
+
+    void decrease(float x, float y) {
+        this.x -= x;
+        this.y -= y;
     }
 
     public void set(Point target) {

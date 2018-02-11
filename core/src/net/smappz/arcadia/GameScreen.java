@@ -45,8 +45,15 @@ class GameScreen extends ScreenAdapter {
         r1.addPoint(-30, 200).addPoint(600, 200).addPoint(900, 300).addPoint(1000, 400);
         r1.addPoint(900, 500).addPoint(800, 600).addPoint(700, 650).addPoint(600, 600);
         r1.addPoint(500, 500).addPoint(400, 300).addPoint(400, -30);
-        AirEnemy a = new AirEnemy(1, r1);
+        AirSquadron a = new AirSquadron(1, r1, 6);
+        a.setCycle(true);
         stage.addActor(a);
+
+        Route r2 = new Route();
+        r2.addPoint(-30, 400).addPoint(1300, 400);
+        AirEnemy e1 = new AirEnemy(2, r2);
+        e1.setCycle(true);
+        stage.addActor(e1);
     }
 
     @Override

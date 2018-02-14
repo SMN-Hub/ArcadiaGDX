@@ -1,25 +1,32 @@
 package net.smappz.arcadia.util;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.math.Vector2;
+
+import static net.smappz.arcadia.GameScreen.HEIGHT;
+import static net.smappz.arcadia.GameScreen.WIDTH;
 
 public class LinearDriver extends Driver {
-    private final Point origin;
-    private final float orientation;
+    private final Vector2 origin;
+    private final double orientation;
 
-    public LinearDriver(Actor actor, Point origin, float orientation) {
+    public LinearDriver(SpriteActor actor, Vector2 origin, float orientation) {
         super(actor);
         this.origin = origin;
-        this.orientation = orientation;
+        this.orientation = Math.toRadians(orientation);
     }
 
     @Override
     public void start() {
-        actor.setPosition(origin.getX(), origin.getY());
+        actor.setPosition(origin.x, origin.y);
     }
 
     @Override
     public void act(float delta, float speed) {
         float maxDistance = speed * delta;
-        actor.moveBy((float)(maxDistance * Math.cos(orientation)), (float)(maxDistance * Math.sin(orientation)));
+        Vector2 pos = actor.getPosition();
+        pos.add((float)(maxDistance * Math.cos(orientation)), (float)(maxDistance * Math.sin(orientation)));
+        actor.setPosition(pos);
+        if (pos.x < -actor.getWidth() || pos.x > WIDTH+actor.getWidth() || pos.y < -actor.getHeight() || pos.y > HEIGHT+actor.getHeight())
+            actor.setVisible(false);
     }
 }

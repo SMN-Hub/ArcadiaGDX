@@ -1,11 +1,9 @@
 package net.smappz.arcadia.util;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
 abstract class Driver {
-    final Actor actor;
+    final SpriteActor actor;
 
-    Driver(Actor actor) {
+    Driver(SpriteActor actor) {
         this.actor = actor;
     }
 

@@ -1,7 +1,7 @@
 package net.smappz.arcadia;
 
-import net.smappz.arcadia.util.Point;
+import com.badlogic.gdx.math.Vector2;
 
 public interface GameListener {
-    void friendlyShoot(Point origin, Point speed);
+    void friendlyShoot(Vector2 origin, float orientation);
 }

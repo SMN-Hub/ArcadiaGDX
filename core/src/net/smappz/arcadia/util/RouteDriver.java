@@ -1,14 +1,13 @@
 package net.smappz.arcadia.util;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.math.Vector2;
 
 public class RouteDriver extends Driver{
     private final Route route;
-    private float lastRotation;
     private float direction;
     private int targetIndex;
 
-    public RouteDriver(Actor actor, Route route) {
+    public RouteDriver(SpriteActor actor, Route route) {
         super(actor);
         assert route.size() > 1;
         this.route = route;
@@ -22,8 +21,7 @@ public class RouteDriver extends Driver{
 
     @Override
     public void start() {
-        actor.setX(route.getPoint(0).getX());
-        actor.setY(route.getPoint(0).getY());
+        actor.setPosition(route.getPoint(0));
         targetIndex = 1;
         actor.setRotation(0);
         computeRotation();
@@ -34,46 +32,47 @@ public class RouteDriver extends Driver{
     }
 
     public void act(float delta, float speed) {
-        act(delta, speed, 0f);
+        Vector2 pos = actor.getPosition();
+        act(delta, speed, pos, 0f);
     }
 
-    private void act(float delta, float speed, float distanceDone) {
+    private void act(float delta, float speed, Vector2 pos, float distanceDone) {
         if (targetIndex < 0) {
             return; // route is over
         }
-        Point target = route.getPoint(targetIndex);
-        float deltaX = target.getX() - actor.getX();
-        float deltaY = target.getY() - actor.getY();
+        Vector2 target = route.getPoint(targetIndex);
+        float deltaX = target.x - pos.x;
+        float deltaY = target.y - pos.y;
         float targetDistance = (float)Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
         float maxDistance = (speed * delta) - distanceDone;
         if (targetDistance > maxDistance) {
-            actor.moveBy(deltaX * maxDistance / targetDistance, deltaY * maxDistance / targetDistance);
+            pos.add(deltaX * maxDistance / targetDistance, deltaY * maxDistance / targetDistance);
+            actor.setPosition(pos);
         } else {
-            actor.setPosition(target.getX(), target.getY());
+            pos.set(target);
             targetIndex++;
             if (targetIndex < route.size()) {
                 computeRotation();
-                if (targetDistance < maxDistance) {
-                    act(delta, speed, targetDistance);
-                }
+                act(delta, speed, pos, targetDistance);
             } else {
                 // route is over
                 targetIndex = -1;
+                actor.setPosition(pos);
             }
         }
     }
 
     private void computeRotation() {
         if (targetIndex >= 0) {
-            Point target = route.getPoint(targetIndex);
-            lastRotation = actor.getRotation();
-            float deltaX = target.getX() - actor.getX();
-            float deltaY = target.getY() - actor.getY();
+            Vector2 target = route.getPoint(targetIndex);
+            float lastRotation = actor.getRotation();
+            float deltaX = target.x - actor.getX();
+            float deltaY = target.y - actor.getY();
             float angle;
             if (deltaX == 0f) {
-                angle = (target.getY() > actor.getY()) ? 90 : 270;
+                angle = (target.y > actor.getY()) ? 90 : 270;
             } else if (deltaY == 0f) {
-                angle = (target.getX() > actor.getX()) ? 0 : 180;
+                angle = (target.x > actor.getX()) ? 0 : 180;
             } else {
                 angle = (float) Math.toDegrees(Math.atan(deltaY / deltaX));
                 if (deltaX < 0)
@@ -86,12 +85,12 @@ public class RouteDriver extends Driver{
 
     public static void backWard(Route route, float distance) {
         if (route.size() >= 2) {
-            float deltaX = route.getPoint(1).getX() - route.getPoint(0).getX();
-            float deltaY = route.getPoint(1).getY() - route.getPoint(0).getY();
+            float deltaX = route.getPoint(1).x - route.getPoint(0).x;
+            float deltaY = route.getPoint(1).y - route.getPoint(0).y;
             float targetDistance = (float)Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-            route.getPoint(0).decrease(deltaX * distance / targetDistance, deltaY * distance / targetDistance);
+            route.getPoint(0).add(-deltaX * distance / targetDistance, -deltaY * distance / targetDistance);
         } else if (route.size() == 1) {
-            route.getPoint(0).decrease(distance, 0);
+            route.getPoint(0).add(-distance, 0);
         }
     }
 }

@@ -3,10 +3,13 @@ package net.smappz.arcadia;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import net.smappz.arcadia.util.Route;
@@ -57,9 +60,8 @@ public class GameScreen extends ScreenAdapter implements GameListener {
         r1.addPoint(-30, 200).addPoint(600, 200).addPoint(900, 300).addPoint(1000, 400);
         r1.addPoint(900, 500).addPoint(800, 600).addPoint(700, 650).addPoint(600, 600);
         r1.addPoint(500, 500).addPoint(400, 300).addPoint(400, -30);
-        AirSquadron a = new AirSquadron(1, r1, 6);
+        AirSquadron a = new AirSquadron(army, r1, 1, 1, 3, 4, 1, 1);
         a.setCycle(true);
-        army.addActor(a);
 
         Route r2 = new Route();
         r2.addPoint(-30, 400).addPoint(1300, 400);
@@ -74,7 +76,35 @@ public class GameScreen extends ScreenAdapter implements GameListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(delta);
+        handleCollisions();
         stage.draw();
+    }
+
+    private void handleCollisions() {
+        SnapshotArray<Actor> shoots = fireworks.getChildren();
+        Actor[] shootItems = shoots.begin();
+
+        SnapshotArray<Actor> enemies = army.getChildren();
+        Actor[] enemyItems = enemies.begin();
+
+        for (int i=0; i < shoots.size; i++) {
+            Shoot shoot = (Shoot)shootItems[i];
+            if (!shoot.isVisible()) continue;
+
+            for (int j=0; j < enemies.size; j++) {
+                if (enemyItems[j] instanceof AirSquadron) continue;
+                AirEnemy enemy = (AirEnemy)enemyItems[j];
+                if (!enemy.isVisible()) continue;
+
+                if (Intersector.overlapConvexPolygons(enemy.getVertices(), shoot.getVertices(), null)) {
+                    shoot.setVisible(false);
+                    enemy.onShoot(shoot);
+                }
+            }
+        }
+
+        enemies.end();
+        shoots.end();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package net.smappz.arcadia;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import net.smappz.arcadia.util.Route;
@@ -14,8 +15,10 @@ class AirSquadron extends Group{
     private List<AirEnemy> actors = new ArrayList<>();
     private boolean cycle = false;
 
-    AirSquadron(int plane, Route route, int nb) {
-        for (int l=0; l<nb; l++) {
+    AirSquadron(Army army, Route route, int... planes) {
+        army.addActor(this);
+        for (int l=0; l<planes.length; l++) {
+            int plane = planes[l];
             Route r = new Route(route);
             if (l > 0) {
                 RouteDriver.backWard(r, l*DECAL);
@@ -39,8 +42,13 @@ class AirSquadron extends Group{
         }
     }
 
+    @Override
+    public void draw (Batch batch, float parentAlpha) {
+        // Skip, just a container
+    }
+
     private void addEnemy(AirEnemy ae) {
-        addActor(ae);
+        getParent().addActor(ae); // assign to parent directly
         actors.add(ae);
     }
 

@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Align;
+
+import static com.badlogic.gdx.graphics.g2d.Batch.*;
 
 public class SpriteActor extends Actor {
     private final float actorToSprite;
@@ -67,5 +68,19 @@ public class SpriteActor extends Actor {
     public void setRotation (float degrees) {
         super.setRotation(degrees + actorToSprite);
         sprite.setRotation(getRotation());
+    }
+
+    public float[] getVertices() {
+        float[] spriteVertices = sprite.getVertices();
+        float[] vertices = new float[8];
+        vertices[0] = spriteVertices[X1];
+        vertices[1] = spriteVertices[Y1];
+        vertices[2] = spriteVertices[X2];
+        vertices[3] = spriteVertices[Y2];
+        vertices[4] = spriteVertices[X3];
+        vertices[5] = spriteVertices[Y3];
+        vertices[6] = spriteVertices[X4];
+        vertices[7] = spriteVertices[Y4];
+        return vertices;
     }
 }

@@ -46,6 +46,7 @@ class AirEnemy extends SpriteActor {
     }
 
     void restart() {
+        setVisible(true);
         driver.start();
     }
 
@@ -84,4 +85,7 @@ class AirEnemy extends SpriteActor {
         return driver.isOver();
     }
 
+    public void onShoot(Shoot shoot) {
+        setVisible(false);
+    }
 }

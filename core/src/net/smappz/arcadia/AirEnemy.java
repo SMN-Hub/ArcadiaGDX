@@ -1,34 +1,42 @@
 package net.smappz.arcadia;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import net.smappz.arcadia.util.Route;
 import net.smappz.arcadia.util.RouteDriver;
-import net.smappz.arcadia.util.SpriteActor;
+import net.smappz.arcadia.util.ShootableActor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
-class AirEnemy extends SpriteActor {
-    private static final float SPEED = 200.f;
+class AirEnemy extends ShootableActor {
     private static final float TIME_TO_PITCH = 1.f;
+    private static final float TIME_TO_DESTROY = 0.2f;
     private static final float ROUTE_TO_SPRITE = 90f;
 
-    private Map<Pitch,TextureAtlas.AtlasRegion> regions = new HashMap<>();
+    private Map<Pitch,TextureAtlas.AtlasRegion> pitchRegions = new HashMap<>();
+    private ArrayList<TextureAtlas.AtlasRegion> destroyRegions = new ArrayList<>();
     private Pitch pitch = Pitch.Flat;
     private float pitchDuration = -1;
+    private int destroyStep = -1;
+    private float destroyDuration = -1;
     private final RouteDriver driver;
     private boolean cycle = false;
 
     AirEnemy(int plane, Route route) {
-        super(ROUTE_TO_SPRITE, 2f);
+        super(ROUTE_TO_SPRITE, 2f, ArcadiaGame.INSTANCE.getPlane(plane));
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("enemy.atlas"));
-        regions.put(Pitch.Left, textureAtlas.findRegion(String.format("00%d1", plane)));
-        regions.put(Pitch.Flat, textureAtlas.findRegion(String.format("00%d2", plane)));
-        regions.put(Pitch.Right, textureAtlas.findRegion(String.format("00%d3", plane)));
+        pitchRegions.put(Pitch.Left, textureAtlas.findRegion(String.format("00%d1", plane)));
+        pitchRegions.put(Pitch.Flat, textureAtlas.findRegion(String.format("00%d2", plane)));
+        pitchRegions.put(Pitch.Right, textureAtlas.findRegion(String.format("00%d3", plane)));
+
+        destroyRegions.add(textureAtlas.findRegion(String.format("00%d4", plane)));
+        destroyRegions.add(textureAtlas.findRegion(String.format("00%d5", plane)));
+        destroyRegions.add(textureAtlas.findRegion(String.format("00%d6", plane)));
 
         updateFrame(pitch);
 
@@ -42,11 +50,25 @@ class AirEnemy extends SpriteActor {
 
     private void updateFrame(Pitch newPitch) {
         pitch = newPitch;
-        setImage(regions.get(pitch));
+        setImage(pitchRegions.get(pitch));
+    }
+
+    private boolean stepDestroy() {
+        destroyStep++;
+        if (destroyStep < destroyRegions.size()) {
+            setImage(destroyRegions.get(destroyStep));
+            return true;
+        } else {
+            destroyStep = -1;
+            return false;
+        }
     }
 
     void restart() {
-        setVisible(true);
+        pitchDuration = -1;
+        destroyDuration = -1;
+        destroyStep = -1;
+        reset();
         driver.start();
     }
 
@@ -59,8 +81,19 @@ class AirEnemy extends SpriteActor {
             restart();
         }
         // update position
-        driver.act(delta, SPEED);
+        driver.act(delta, descriptor.getSpeed());
 
+        // update destruction
+        if (destroyDuration >= 0) {
+            destroyDuration += delta;
+            if (destroyDuration > TIME_TO_DESTROY) {
+                if (!stepDestroy()) {
+                    destroyDuration = -1;
+                    setVisible(false);
+                }
+            }
+            return; // skip rest
+        }
         // update orientation
         float rotation = driver.getDirection();
         if (rotation != 0) {
@@ -85,7 +118,11 @@ class AirEnemy extends SpriteActor {
         return driver.isOver();
     }
 
-    public void onShoot(Shoot shoot) {
-        setVisible(false);
+    @Override
+    public void onDestroyed() {
+        setTouchable(Touchable.disabled);
+        // start destroy animation
+        destroyDuration = 0;
+        stepDestroy();
     }
 }

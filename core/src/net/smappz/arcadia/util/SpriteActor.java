@@ -8,12 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import static com.badlogic.gdx.graphics.g2d.Batch.*;
 
-public class SpriteActor extends Actor {
+public abstract class SpriteActor extends Actor {
     private final float actorToSprite;
     private final float spriteScale;
     private Sprite sprite = null;
 
-    public SpriteActor(float actorToSprite, float spriteScale) {
+    protected SpriteActor(float actorToSprite, float spriteScale) {
         this.actorToSprite = actorToSprite;
         this.spriteScale = spriteScale;
     }

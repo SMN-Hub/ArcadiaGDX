@@ -6,18 +6,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 
 import net.smappz.arcadia.util.ManualDriver;
+import net.smappz.arcadia.util.ShootableActor;
 import net.smappz.arcadia.util.SpriteActor;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-class AirFighter extends SpriteActor {
+class AirFighter extends ShootableActor {
     private static final Vector2 INITIAL_POSITION = new Vector2(1000, 200);
-    private static final float SPEED = 800.f;
     private static final float PITCH_LEVEL_1 = 100f;
     private static final float PITCH_LEVEL_2 = 200f;
-    private static final float SHOOT_FREQUENCY = 0.2f;
 
     private Pitch pitch = Pitch.Flat;
     private Map<Pitch,TextureAtlas.AtlasRegion> regions = new HashMap<>();
@@ -27,7 +26,7 @@ class AirFighter extends SpriteActor {
     private final ManualDriver driver;
 
     AirFighter(GameListener listener) {
-        super(0f, 2f);
+        super(0f, 2f, ArcadiaGame.INSTANCE.getPlane(0));
         this.listener = listener;
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("PlanesSmall.atlas"));
         regions.put(Pitch.Left2, textureAtlas.findRegion("0001"));
@@ -44,7 +43,7 @@ class AirFighter extends SpriteActor {
 
     void setShooting(boolean shooting) {
         this.shooting = shooting;
-        lastShoot = SHOOT_FREQUENCY;
+        lastShoot = descriptor.getShootFrequency();
     }
 
     void moveTo(float x, float y) {
@@ -61,11 +60,11 @@ class AirFighter extends SpriteActor {
         super.act(delta);
 
         // update position
-        driver.act(delta, SPEED);
+        driver.act(delta, descriptor.getSpeed());
 
         // shoot
         lastShoot += delta;
-        if (lastShoot > SHOOT_FREQUENCY) {
+        if (lastShoot > descriptor.getShootFrequency()) {
             if (shooting) {
                 // canon position
                 listener.friendlyShoot(1, centerCanon(), 180f);

@@ -24,7 +24,7 @@ class Fireworks extends Group {
             region = textureAtlas.findRegion(String.format("000%d", shootId));
             regions.put(shootId, region);
         }
-        Shoot shoot = new Shoot(region, origin, orientation);
+        Shoot shoot = new Shoot(region, origin, orientation, ArcadiaGame.INSTANCE.getShot(shootId));
         addActor(shoot);
     }
 

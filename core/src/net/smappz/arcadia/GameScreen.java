@@ -25,7 +25,7 @@ public class GameScreen extends ScreenAdapter implements GameListener {
     @Override
     public void show() {
         stage = new Stage(new StretchViewport(WIDTH, HEIGHT)); //ScreenViewport());
-        stage.setDebugAll(true);
+        //stage.setDebugAll(true);
         fighter = new AirFighter(this);
         stage.addActor(fighter);
         fireworks = new Fireworks();
@@ -94,7 +94,7 @@ public class GameScreen extends ScreenAdapter implements GameListener {
             for (int j=0; j < enemies.size; j++) {
                 if (enemyItems[j] instanceof AirSquadron) continue;
                 AirEnemy enemy = (AirEnemy)enemyItems[j];
-                if (!enemy.isVisible()) continue;
+                if (!enemy.isVisible() || !enemy.isTouchable()) continue;
 
                 if (Intersector.overlapConvexPolygons(enemy.getVertices(), shoot.getVertices(), null)) {
                     shoot.setVisible(false);

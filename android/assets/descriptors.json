@@ -1,0 +1,41 @@
+{
+  "planes": [
+    {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "id": 0,
+      "speed": 800,
+      "life": 100
+    },
+    {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "id": 1,
+      "speed": 400,
+      "life": 10
+    },
+    {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "id": 2,
+      "speed": 400,
+      "life": 20
+    },
+    {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "id": 3,
+      "speed": 400,
+      "life": 20
+    },
+    {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "id": 4,
+      "speed": 400,
+      "life": 20
+    }
+  ],
+  "shots": [
+    {
+      "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
+      "id": 1,
+      "power": 10
+    }
+  ]
+}

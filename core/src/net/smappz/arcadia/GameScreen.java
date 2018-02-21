@@ -113,7 +113,7 @@ public class GameScreen extends ScreenAdapter implements GameListener {
     }
 
     @Override
-    public void friendlyShoot(Vector2 origin, float orientation) {
-        fireworks.shoot(origin, orientation);
+    public void friendlyShoot(int shootId, Vector2 origin, float orientation) {
+        fireworks.shoot(shootId, origin, orientation);
     }
 }

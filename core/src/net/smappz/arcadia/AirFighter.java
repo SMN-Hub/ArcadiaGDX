@@ -68,9 +68,9 @@ class AirFighter extends SpriteActor {
         if (lastShoot > SHOOT_FREQUENCY) {
             if (shooting) {
                 // canon position
-                listener.friendlyShoot(centerCanon(), 180f);
-                listener.friendlyShoot(leftCanon(), 180f);
-                listener.friendlyShoot(rightCanon(), 180f);
+                listener.friendlyShoot(1, centerCanon(), 180f);
+                listener.friendlyShoot(1, leftCanon(), 180f);
+                listener.friendlyShoot(1, rightCanon(), 180f);
             }
             lastShoot = 0;
         }

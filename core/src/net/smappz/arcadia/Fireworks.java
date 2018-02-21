@@ -7,16 +7,24 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.SnapshotArray;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Fireworks extends Group {
-    private TextureAtlas.AtlasRegion regionShoot1;
+    private final TextureAtlas textureAtlas;
+    private final Map<Integer,TextureAtlas.AtlasRegion> regions = new HashMap<>();
 
     Fireworks() {
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("shots.atlas"));
-        regionShoot1 = textureAtlas.findRegion("0001");
+        textureAtlas = new TextureAtlas(Gdx.files.internal("shots.atlas"));
     }
 
-    void shoot(Vector2 origin, float orientation) {
-        Shoot shoot = new Shoot(regionShoot1, origin, orientation);
+    void shoot(int shootId, Vector2 origin, float orientation) {
+        TextureAtlas.AtlasRegion region = regions.get(shootId);
+        if (region == null) {
+            region = textureAtlas.findRegion(String.format("000%d", shootId));
+            regions.put(shootId, region);
+        }
+        Shoot shoot = new Shoot(region, origin, orientation);
         addActor(shoot);
     }
 

@@ -3,6 +3,7 @@ package net.smappz.arcadia;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -16,6 +17,7 @@ import net.smappz.arcadia.util.Route;
 
 public class GameScreen extends ScreenAdapter implements GameListener {
     private Stage stage;
+    private Scroller scroller;
     private AirFighter fighter;
     private Army army;
     private Fireworks fireworks;
@@ -24,14 +26,18 @@ public class GameScreen extends ScreenAdapter implements GameListener {
 
     @Override
     public void show() {
+        // Stage and actors
         stage = new Stage(new StretchViewport(WIDTH, HEIGHT)); //ScreenViewport());
         //stage.setDebugAll(true);
+        scroller = new Scroller();
+        stage.addActor(scroller);
         fighter = new AirFighter(this);
         stage.addActor(fighter);
         fireworks = new Fireworks();
         stage.addActor(fireworks);
         createEnemies();
 
+        // controls
         Gdx.input.setInputProcessor(stage);
         stage.addListener(new InputListener() {
             @Override

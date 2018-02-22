@@ -1,4 +1,4 @@
-package net.smappz.arcadia.util;
+package net.smappz.arcadia.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;

@@ -7,17 +7,24 @@ import com.badlogic.gdx.utils.Json;
 import net.smappz.arcadia.descriptors.GameDescriptor;
 import net.smappz.arcadia.descriptors.PlaneDescriptor;
 import net.smappz.arcadia.descriptors.ShotDescriptor;
+import net.smappz.arcadia.levels.Level;
+import net.smappz.arcadia.levels.Level_1;
+import net.smappz.arcadia.util.ResourceManager;
 
 public class ArcadiaGame extends Game {
     public static ArcadiaGame INSTANCE = null;
+	public static ResourceManager RESOURCES = null;
 	private GameDescriptor descriptors;
 	private GameScreen gameScreen;
 
     @Override
 	public void create() {
 		INSTANCE = this;
+		RESOURCES = new ResourceManager();
 		descriptors = loadDescriptors();
 		gameScreen = new GameScreen();
+        Level level = new Level_1();
+        gameScreen.setLevel(level);
 		setScreen(gameScreen);
 	}
 
@@ -26,7 +33,7 @@ public class ArcadiaGame extends Game {
         return json.fromJson(GameDescriptor.class, Gdx.files.internal("descriptors.json"));
     }
 
-	PlaneDescriptor getPlane(int id) {
+	public PlaneDescriptor getPlane(int id) {
 		return descriptors.getPlanes().get(id);
 	}
 

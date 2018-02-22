@@ -1,29 +1,19 @@
 package net.smappz.arcadia;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.SnapshotArray;
 
-import java.util.HashMap;
-import java.util.Map;
+import net.smappz.arcadia.actors.Shoot;
 
-class Fireworks extends Group {
-    private final TextureAtlas textureAtlas;
-    private final Map<Integer,TextureAtlas.AtlasRegion> regions = new HashMap<>();
+import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
-    Fireworks() {
-        textureAtlas = new TextureAtlas(Gdx.files.internal("shots.atlas"));
-    }
+public class Fireworks extends Group {
 
     void shoot(int shootId, Vector2 origin, float orientation) {
-        TextureAtlas.AtlasRegion region = regions.get(shootId);
-        if (region == null) {
-            region = textureAtlas.findRegion(String.format("000%d", shootId));
-            regions.put(shootId, region);
-        }
+        TextureAtlas.AtlasRegion region = RESOURCES.getTextureRegion(String.format("shot0%d", shootId));
         Shoot shoot = new Shoot(region, origin, orientation, ArcadiaGame.INSTANCE.getShot(shootId));
         addActor(shoot);
     }

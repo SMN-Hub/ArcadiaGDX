@@ -1,4 +1,4 @@
-package net.smappz.arcadia;
+package net.smappz.arcadia.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 

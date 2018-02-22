@@ -7,7 +7,7 @@ public class RouteDriver extends Driver{
     private float direction;
     private int targetIndex;
 
-    public RouteDriver(SpriteActor actor, Route route) {
+    public RouteDriver(net.smappz.arcadia.actors.SpriteActor actor, Route route) {
         super(actor);
         assert route.size() > 1;
         this.route = route;

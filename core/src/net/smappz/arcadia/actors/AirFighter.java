@@ -1,19 +1,21 @@
-package net.smappz.arcadia;
+package net.smappz.arcadia.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 
+import net.smappz.arcadia.ArcadiaGame;
+import net.smappz.arcadia.GameListener;
 import net.smappz.arcadia.util.ManualDriver;
-import net.smappz.arcadia.util.ShootableActor;
-import net.smappz.arcadia.util.SpriteActor;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
-class AirFighter extends ShootableActor {
+
+public class AirFighter extends ShootableActor {
     private static final Vector2 INITIAL_POSITION = new Vector2(1000, 200);
     private static final float PITCH_LEVEL_1 = 100f;
     private static final float PITCH_LEVEL_2 = 200f;
@@ -25,15 +27,14 @@ class AirFighter extends ShootableActor {
     private final GameListener listener;
     private final ManualDriver driver;
 
-    AirFighter(GameListener listener) {
+    public AirFighter(GameListener listener) {
         super(0f, 2f, ArcadiaGame.INSTANCE.getPlane(0));
         this.listener = listener;
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("PlanesSmall.atlas"));
-        regions.put(Pitch.Left2, textureAtlas.findRegion("0001"));
-        regions.put(Pitch.Left, textureAtlas.findRegion("0002"));
-        regions.put(Pitch.Flat, textureAtlas.findRegion("0003"));
-        regions.put(Pitch.Right, textureAtlas.findRegion("0004"));
-        regions.put(Pitch.Right2, textureAtlas.findRegion("0005"));
+        regions.put(Pitch.Left2, RESOURCES.getTextureRegion("plane01"));
+        regions.put(Pitch.Left, RESOURCES.getTextureRegion("plane02"));
+        regions.put(Pitch.Flat, RESOURCES.getTextureRegion("plane03"));
+        regions.put(Pitch.Right, RESOURCES.getTextureRegion("plane04"));
+        regions.put(Pitch.Right2, RESOURCES.getTextureRegion("plane05"));
 
         setImage(regions.get(pitch));
 
@@ -41,12 +42,12 @@ class AirFighter extends ShootableActor {
         driver.start();
     }
 
-    void setShooting(boolean shooting) {
+    public void setShooting(boolean shooting) {
         this.shooting = shooting;
         lastShoot = descriptor.getShootFrequency();
     }
 
-    void moveTo(float x, float y) {
+    public void moveTo(float x, float y) {
         driver.setTarget(x, y);
     }
 

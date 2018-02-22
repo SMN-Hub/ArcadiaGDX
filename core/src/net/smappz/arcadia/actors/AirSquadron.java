@@ -1,4 +1,4 @@
-package net.smappz.arcadia;
+package net.smappz.arcadia.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -9,13 +9,13 @@ import net.smappz.arcadia.util.RouteDriver;
 import java.util.ArrayList;
 import java.util.List;
 
-class AirSquadron extends Group{
+public class AirSquadron extends Group{
 
     private static final float DECAL = 90f;
     private List<AirEnemy> actors = new ArrayList<>();
     private boolean cycle = false;
 
-    AirSquadron(Army army, Route route, int... planes) {
+    public AirSquadron(Army army, Route route, int... planes) {
         army.addActor(this);
         for (int l=0; l<planes.length; l++) {
             int plane = planes[l];
@@ -28,7 +28,7 @@ class AirSquadron extends Group{
         }
     }
 
-    void setCycle(boolean cycle) {
+    public void setCycle(boolean cycle) {
         this.cycle = cycle;
     }
 

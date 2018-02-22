@@ -9,7 +9,7 @@ public class LinearDriver extends Driver {
     private final Vector2 origin;
     private final double orientation;
 
-    public LinearDriver(SpriteActor actor, Vector2 origin, float orientation) {
+    public LinearDriver(net.smappz.arcadia.actors.SpriteActor actor, Vector2 origin, float orientation) {
         super(actor);
         this.origin = origin;
         this.orientation = Math.toRadians(orientation);

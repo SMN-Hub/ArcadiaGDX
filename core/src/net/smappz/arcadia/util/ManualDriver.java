@@ -8,7 +8,7 @@ public class ManualDriver extends Driver {
     private final Vector2 target;
     private float direction = 0;
 
-    public ManualDriver(SpriteActor actor, Vector2 origin) {
+    public ManualDriver(net.smappz.arcadia.actors.SpriteActor actor, Vector2 origin) {
         super(actor);
         target = new Vector2(origin);
     }

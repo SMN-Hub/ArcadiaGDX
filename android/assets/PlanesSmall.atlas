@@ -3,35 +3,35 @@ PlanesSmall.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-0001
+plane01
   rotate: false
   xy: 0, 0
   size: 57, 62
   orig: 57, 62
   offset: 0, 0
   index: -1
-0002
+plane02
   rotate: false
   xy: 58, 0
   size: 57, 62
   orig: 57, 62
   offset: 0, 0
   index: -1
-0003
+plane03
   rotate: false
   xy: 116, 0
   size: 57, 62
   orig: 57, 62
   offset: 0, 0
   index: -1
-0004
+plane04
   rotate: false
   xy: 172, 0
   size: 57, 62
   orig: 57, 62
   offset: 0, 0
   index: -1
-0005
+plane05
   rotate: false
   xy: 229, 0
   size: 57, 62

@@ -1,5 +1,7 @@
 package net.smappz.arcadia.util;
 
+import net.smappz.arcadia.actors.SpriteActor;
+
 abstract class Driver {
     final SpriteActor actor;
 

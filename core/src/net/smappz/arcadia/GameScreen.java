@@ -3,7 +3,6 @@ package net.smappz.arcadia;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,29 +12,41 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import net.smappz.arcadia.util.Route;
+import net.smappz.arcadia.actors.AirEnemy;
+import net.smappz.arcadia.actors.AirFighter;
+import net.smappz.arcadia.actors.AirSquadron;
+import net.smappz.arcadia.actors.Army;
+import net.smappz.arcadia.actors.Shoot;
+import net.smappz.arcadia.levels.Level;
 
 public class GameScreen extends ScreenAdapter implements GameListener {
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
+
     private Stage stage;
-    private Scroller scroller;
     private AirFighter fighter;
     private Army army;
     private Fireworks fireworks;
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+    private Level level;
 
     @Override
     public void show() {
         // Stage and actors
         stage = new Stage(new StretchViewport(WIDTH, HEIGHT)); //ScreenViewport());
         //stage.setDebugAll(true);
-        scroller = new Scroller();
-        stage.addActor(scroller);
         fighter = new AirFighter(this);
         stage.addActor(fighter);
+        fighter.setZIndex(100);
+
         fireworks = new Fireworks();
         stage.addActor(fireworks);
-        createEnemies();
+        fireworks.setZIndex(20);
+
+        army = new Army();
+        stage.addActor(army);
+        fighter.setZIndex(10);
+
+        level.create(stage, army);
 
         // controls
         Gdx.input.setInputProcessor(stage);
@@ -59,28 +70,12 @@ public class GameScreen extends ScreenAdapter implements GameListener {
         });
     }
 
-    private void createEnemies() {
-        army = new Army();
-        stage.addActor(army);
-        Route r1 = new Route();
-        r1.addPoint(-30, 200).addPoint(600, 200).addPoint(900, 300).addPoint(1000, 400);
-        r1.addPoint(900, 500).addPoint(800, 600).addPoint(700, 650).addPoint(600, 600);
-        r1.addPoint(500, 500).addPoint(400, 300).addPoint(400, -30);
-        AirSquadron a = new AirSquadron(army, r1, 1, 1, 3, 4, 1, 1);
-        a.setCycle(true);
-
-        Route r2 = new Route();
-        r2.addPoint(-30, 400).addPoint(1300, 400);
-        AirEnemy e1 = new AirEnemy(2, r2);
-        e1.setCycle(true);
-        army.addActor(e1);
-    }
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        level.act(delta);
         stage.act(delta);
         handleCollisions();
         stage.draw();
@@ -121,5 +116,9 @@ public class GameScreen extends ScreenAdapter implements GameListener {
     @Override
     public void friendlyShoot(int shootId, Vector2 origin, float orientation) {
         fireworks.shoot(shootId, origin, orientation);
+    }
+
+    void setLevel(Level level) {
+        this.level = level;
     }
 }

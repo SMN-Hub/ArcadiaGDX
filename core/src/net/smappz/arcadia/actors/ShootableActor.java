@@ -1,11 +1,10 @@
-package net.smappz.arcadia.util;
+package net.smappz.arcadia.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
-import net.smappz.arcadia.Shoot;
 import net.smappz.arcadia.descriptors.PlaneDescriptor;
 
-public abstract class ShootableActor extends SpriteActor {
+abstract class ShootableActor extends SpriteActor {
     private int currentLife = 0;
     protected final PlaneDescriptor descriptor;
 

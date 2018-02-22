@@ -1,19 +1,22 @@
-package net.smappz.arcadia;
+package net.smappz.arcadia.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
+import net.smappz.arcadia.ArcadiaGame;
 import net.smappz.arcadia.util.Route;
 import net.smappz.arcadia.util.RouteDriver;
-import net.smappz.arcadia.util.ShootableActor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static net.smappz.arcadia.ArcadiaGame.INSTANCE;
+import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
-class AirEnemy extends ShootableActor {
+
+public class AirEnemy extends ShootableActor {
     private static final float TIME_TO_PITCH = 1.f;
     private static final float TIME_TO_DESTROY = 0.2f;
     private static final float ROUTE_TO_SPRITE = 90f;
@@ -27,16 +30,15 @@ class AirEnemy extends ShootableActor {
     private final RouteDriver driver;
     private boolean cycle = false;
 
-    AirEnemy(int plane, Route route) {
-        super(ROUTE_TO_SPRITE, 2f, ArcadiaGame.INSTANCE.getPlane(plane));
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("enemy.atlas"));
-        pitchRegions.put(Pitch.Left, textureAtlas.findRegion(String.format("00%d1", plane)));
-        pitchRegions.put(Pitch.Flat, textureAtlas.findRegion(String.format("00%d2", plane)));
-        pitchRegions.put(Pitch.Right, textureAtlas.findRegion(String.format("00%d3", plane)));
+    public AirEnemy(int plane, Route route) {
+        super(ROUTE_TO_SPRITE, 2f, INSTANCE.getPlane(plane));
+        pitchRegions.put(Pitch.Left, RESOURCES.getTextureRegion(String.format("enemy00%d1", plane)));
+        pitchRegions.put(Pitch.Flat, RESOURCES.getTextureRegion(String.format("enemy00%d2", plane)));
+        pitchRegions.put(Pitch.Right, RESOURCES.getTextureRegion(String.format("enemy00%d3", plane)));
 
-        destroyRegions.add(textureAtlas.findRegion(String.format("00%d4", plane)));
-        destroyRegions.add(textureAtlas.findRegion(String.format("00%d5", plane)));
-        destroyRegions.add(textureAtlas.findRegion(String.format("00%d6", plane)));
+        destroyRegions.add(RESOURCES.getTextureRegion(String.format("enemy00%d4", plane)));
+        destroyRegions.add(RESOURCES.getTextureRegion(String.format("enemy00%d5", plane)));
+        destroyRegions.add(RESOURCES.getTextureRegion(String.format("enemy00%d6", plane)));
 
         updateFrame(pitch);
 
@@ -44,7 +46,7 @@ class AirEnemy extends ShootableActor {
         restart();
     }
 
-    void setCycle(boolean cycle) {
+    public void setCycle(boolean cycle) {
         this.cycle = cycle;
     }
 

@@ -3,6 +3,7 @@ package net.smappz.arcadia.actors;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
+import net.smappz.arcadia.util.Formation;
 import net.smappz.arcadia.util.Route;
 import net.smappz.arcadia.util.RouteDriver;
 
@@ -11,18 +12,14 @@ import java.util.List;
 
 public class AirSquadron extends Group{
 
-    private static final float DECAL = 90f;
     private List<AirEnemy> actors = new ArrayList<>();
     private boolean cycle = false;
 
-    public AirSquadron(Army army, Route route, int... planes) {
+    public AirSquadron(Army army, Route route, Formation formation, int... planes) {
         army.addActor(this);
         for (int l=0; l<planes.length; l++) {
             int plane = planes[l];
-            Route r = new Route(route);
-            if (l > 0) {
-                RouteDriver.backWard(r, l*DECAL);
-            }
+            Route r = formation.place(route, l);
             AirEnemy ae = new AirEnemy(plane, r);
             addEnemy(ae);
         }
@@ -60,7 +57,7 @@ public class AirSquadron extends Group{
         return true;
     }
 
-    private void restart() {
+    void restart() {
         for (AirEnemy actor : actors) {
             actor.restart();
         }

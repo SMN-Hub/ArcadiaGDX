@@ -84,6 +84,9 @@ public class RouteDriver extends Driver{
     }
 
     public static void backWard(Route route, float distance) {
+        if (distance == 0) {
+            return;
+        }
         if (route.size() >= 2) {
             float deltaX = route.getPoint(1).x - route.getPoint(0).x;
             float deltaY = route.getPoint(1).y - route.getPoint(0).y;
@@ -91,6 +94,22 @@ public class RouteDriver extends Driver{
             route.getPoint(0).add(-deltaX * distance / targetDistance, -deltaY * distance / targetDistance);
         } else if (route.size() == 1) {
             route.getPoint(0).add(-distance, 0);
+        }
+    }
+
+    public static void translate(Route route, float dx, float dy) {
+        if (dx == 0 && dy == 0) {
+            return;
+        }
+        for (int i = 0; i < route.size(); i++) {
+            route.getPoint(i).add(dx, dy);
+        }
+    }
+
+    public static void reverse(Route route, int height) {
+        for (int i = 0; i < route.size(); i++) {
+            Vector2 point = route.getPoint(i);
+            point.y = height - point.y;
         }
     }
 }

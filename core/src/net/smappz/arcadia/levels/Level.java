@@ -31,4 +31,13 @@ public abstract class Level implements TimeEventListener {
     public void onEvent(TimeEvent event) {
         event.trigger();//may be triggered by timeline directly if no override needed
     }
+
+    void restartTimelineAt(float instant) {
+        timeline.addEvent(instant, new TimeEvent() {
+            @Override
+            public void trigger() {
+                timeline.restart();
+            }
+        });
+    }
 }

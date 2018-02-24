@@ -6,20 +6,31 @@ import java.util.Collections;
 public class Timeline {
     private final TimeEventListener listener;
     private float time = 0;
-    private final ArrayList<TimelineEvent> queue = new ArrayList<>();
+    private ArrayList<TimelineEvent> remainingEvents = null;
+    private ArrayList<TimelineEvent> allEvents = new ArrayList<>();
 
     public Timeline(TimeEventListener listener) {
         this.listener = listener;
     }
 
     public void addEvent(float time, TimeEvent event) {
-        queue.add(new TimelineEvent(time, event));
-        Collections.sort(queue);
+        allEvents.add(new TimelineEvent(time, event));
     }
+
+    public void restart() {
+        Collections.sort(allEvents);
+        remainingEvents = new ArrayList<>();
+        remainingEvents.addAll(allEvents);
+        time = 0;
+    }
+
     public void act(float delta) {
+        if (remainingEvents == null) {
+            restart();
+        }
         time += delta;
-        while (!queue.isEmpty() && queue.get(0).getTime() < time) {
-            TimelineEvent timelineEvent = queue.remove(0);
+        while (!remainingEvents.isEmpty() && remainingEvents.get(0).getTime() < time) {
+            TimelineEvent timelineEvent = remainingEvents.remove(0);
             listener.onEvent(timelineEvent.getEvent());
         }
     }

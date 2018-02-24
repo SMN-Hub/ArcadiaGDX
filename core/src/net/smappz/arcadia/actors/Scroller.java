@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import net.smappz.arcadia.GameScreen;
 
 public class Scroller extends Actor {
-    private static final float SCROLL_SPEED = 40;
+    private static final float SCROLL_SPEED = -40;
     private Texture background;
 
     public Scroller() {
@@ -20,7 +20,7 @@ public class Scroller extends Actor {
     public void act (float delta) {
         super.act(delta);
         this.moveBy(SCROLL_SPEED * delta, 0);
-        if (getX() > GameScreen.WIDTH)
+        if (getX() > GameScreen.WIDTH || getX() < -GameScreen.WIDTH)
             setX(((int)getX()) % GameScreen.WIDTH);
     }
 

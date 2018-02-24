@@ -12,11 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import net.smappz.arcadia.actors.AirEnemy;
-import net.smappz.arcadia.actors.AirFighter;
-import net.smappz.arcadia.actors.AirSquadron;
-import net.smappz.arcadia.actors.Army;
-import net.smappz.arcadia.actors.Shoot;
+import net.smappz.arcadia.actors.*;
 import net.smappz.arcadia.levels.Level;
 
 public class GameScreen extends ScreenAdapter implements GameListener {
@@ -26,7 +22,7 @@ public class GameScreen extends ScreenAdapter implements GameListener {
     private Stage stage;
     private AirFighter fighter;
     private Army army;
-    private Fireworks fireworks;
+    private net.smappz.arcadia.actors.Fireworks fireworks;
     private Level level;
 
     @Override
@@ -38,7 +34,7 @@ public class GameScreen extends ScreenAdapter implements GameListener {
         stage.addActor(fighter);
         fighter.setZIndex(100);
 
-        fireworks = new Fireworks();
+        fireworks = new net.smappz.arcadia.actors.Fireworks();
         stage.addActor(fireworks);
         fireworks.setZIndex(20);
 

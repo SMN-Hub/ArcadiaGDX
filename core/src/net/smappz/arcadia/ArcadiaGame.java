@@ -37,7 +37,7 @@ public class ArcadiaGame extends Game {
 		return descriptors.getPlanes().get(id);
 	}
 
-	ShotDescriptor getShot(int id) {
+	public ShotDescriptor getShot(int id) {
 		return descriptors.getShots().get(id-1);
 	}
 

@@ -2,14 +2,16 @@ package net.smappz.arcadia.util;
 
 import com.badlogic.gdx.math.Vector2;
 
-import static net.smappz.arcadia.GameScreen.HEIGHT;
-import static net.smappz.arcadia.GameScreen.WIDTH;
+import net.smappz.arcadia.actors.SpriteActor;
+
+import static net.smappz.arcadia.AbstractScreen.HEIGHT;
+import static net.smappz.arcadia.AbstractScreen.WIDTH;
 
 public class LinearDriver extends Driver {
     private final Vector2 origin;
     private final double orientation;
 
-    public LinearDriver(net.smappz.arcadia.actors.SpriteActor actor, Vector2 origin, float orientation) {
+    public LinearDriver(SpriteActor actor, Vector2 origin, float orientation) {
         super(actor);
         this.origin = origin;
         this.orientation = Math.toRadians(orientation);
@@ -17,7 +19,7 @@ public class LinearDriver extends Driver {
 
     @Override
     public void start() {
-        actor.setPosition(origin.x, origin.y);
+        actor.setPosition(origin);
     }
 
     @Override

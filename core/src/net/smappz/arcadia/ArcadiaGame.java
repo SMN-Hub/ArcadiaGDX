@@ -15,17 +15,20 @@ public class ArcadiaGame extends Game {
     public static ArcadiaGame INSTANCE = null;
 	public static ResourceManager RESOURCES = null;
 	private GameDescriptor descriptors;
-	private GameScreen gameScreen;
+
+    private SplashScreen splashScreen;
+    private GameScreen gameScreen;
 
     @Override
 	public void create() {
 		INSTANCE = this;
 		RESOURCES = new ResourceManager();
 		descriptors = loadDescriptors();
+
+        splashScreen = new SplashScreen();
 		gameScreen = new GameScreen();
-        Level level = new Level_1();
-        gameScreen.setLevel(level);
-		setScreen(gameScreen);
+
+        splash();
 	}
 
 	private GameDescriptor loadDescriptors() {
@@ -44,10 +47,26 @@ public class ArcadiaGame extends Game {
 	@Override
 	public void dispose() {
 		gameScreen.dispose();
+		RESOURCES.dispose();
 	}
 
 	@Override
 	public void pause () {
 		Gdx.app.exit();
+	}
+
+	void splash() {
+        setScreen(splashScreen);
+	}
+
+	void enter() {
+        //TODO menu
+        startLevel();
+	}
+
+	void startLevel() {
+        Level level = new Level_1();
+        gameScreen.setLevel(level);
+        setScreen(gameScreen);
 	}
 }

@@ -3,10 +3,20 @@ package net.smappz.arcadia.actors;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-import static com.badlogic.gdx.graphics.g2d.Batch.*;
+import net.smappz.arcadia.AbstractScreen;
+
+import static com.badlogic.gdx.graphics.g2d.Batch.X1;
+import static com.badlogic.gdx.graphics.g2d.Batch.X2;
+import static com.badlogic.gdx.graphics.g2d.Batch.X3;
+import static com.badlogic.gdx.graphics.g2d.Batch.X4;
+import static com.badlogic.gdx.graphics.g2d.Batch.Y1;
+import static com.badlogic.gdx.graphics.g2d.Batch.Y2;
+import static com.badlogic.gdx.graphics.g2d.Batch.Y3;
+import static com.badlogic.gdx.graphics.g2d.Batch.Y4;
 
 public abstract class SpriteActor extends Actor {
     private final float actorToSprite;
@@ -82,5 +92,11 @@ public abstract class SpriteActor extends Actor {
         vertices[6] = spriteVertices[X4];
         vertices[7] = spriteVertices[Y4];
         return vertices;
+    }
+
+    public boolean isOut() {
+        Rectangle bounds = sprite.getBoundingRectangle();
+        return bounds.getX() > AbstractScreen.WIDTH || bounds.getX() + bounds.getWidth() < 0
+                || bounds.getY() > AbstractScreen.HEIGHT || bounds.getY() + bounds.getHeight() < 0;
     }
 }

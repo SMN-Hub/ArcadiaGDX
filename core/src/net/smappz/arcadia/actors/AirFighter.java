@@ -1,6 +1,5 @@
 package net.smappz.arcadia.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
@@ -16,7 +15,6 @@ import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
 
 public class AirFighter extends ShootableActor {
-    private static final Vector2 INITIAL_POSITION = new Vector2(1000, 200);
     private static final float PITCH_LEVEL_1 = 100f;
     private static final float PITCH_LEVEL_2 = 200f;
 
@@ -28,6 +26,10 @@ public class AirFighter extends ShootableActor {
     private final ManualDriver driver;
 
     public AirFighter(GameListener listener) {
+        this(listener, 900, 360);
+    }
+
+    public AirFighter(GameListener listener, float initialX, float initialY) {
         super(0f, 2f, ArcadiaGame.INSTANCE.getPlane(0));
         this.listener = listener;
         regions.put(Pitch.Left2, RESOURCES.getTextureRegion("plane01"));
@@ -38,7 +40,7 @@ public class AirFighter extends ShootableActor {
 
         setImage(regions.get(pitch));
 
-        driver = new ManualDriver(this, INITIAL_POSITION);
+        driver = new ManualDriver(this, new Vector2(initialX, initialY));
         driver.start();
     }
 

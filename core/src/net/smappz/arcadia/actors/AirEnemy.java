@@ -28,8 +28,8 @@ public class AirEnemy extends ShootableActor {
     private final RouteDriver driver;
     private boolean cycle = false;
 
-    public AirEnemy(int plane, Route route) {
-        super(ROUTE_TO_SPRITE, 2f, INSTANCE.getPlane(plane));
+    AirEnemy(int plane, Route route) {
+        super(ROUTE_TO_SPRITE, 3f, INSTANCE.getPlane(plane));
         pitchRegions.put(Pitch.Left, RESOURCES.getTextureRegion(String.format("enemy00%d1", plane)));
         pitchRegions.put(Pitch.Flat, RESOURCES.getTextureRegion(String.format("enemy00%d2", plane)));
         pitchRegions.put(Pitch.Right, RESOURCES.getTextureRegion(String.format("enemy00%d3", plane)));
@@ -77,8 +77,12 @@ public class AirEnemy extends ShootableActor {
         super.act(delta);
 
         // Cycle execution
-        if (cycle && driver.isOver()) {
-            restart();
+        if (driver.isOver()) {
+            if (cycle) {
+                restart();
+            } else {
+                setVisible(false);
+            }
         }
         // update position
         driver.act(delta, descriptor.getSpeed());
@@ -114,7 +118,8 @@ public class AirEnemy extends ShootableActor {
         }
     }
 
-    boolean isOut() {
+    @Override
+    public boolean isOut() {
         return driver.isOver();
     }
 

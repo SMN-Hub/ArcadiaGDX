@@ -2,20 +2,22 @@ package net.smappz.arcadia.util;
 
 import com.badlogic.gdx.math.Vector2;
 
+import net.smappz.arcadia.actors.SpriteActor;
+
 import static net.smappz.arcadia.util.FloatUtil.isZero;
 
 public class ManualDriver extends Driver {
     private final Vector2 target;
     private float direction = 0;
 
-    public ManualDriver(net.smappz.arcadia.actors.SpriteActor actor, Vector2 origin) {
+    public ManualDriver(SpriteActor actor, Vector2 origin) {
         super(actor);
         target = new Vector2(origin);
     }
 
     @Override
     public void start() {
-        actor.setPosition(target.x, target.y);
+        actor.setPosition(target);
     }
 
     @Override

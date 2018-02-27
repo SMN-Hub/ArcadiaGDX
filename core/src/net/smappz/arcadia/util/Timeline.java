@@ -4,14 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Timeline {
-    private final TimeEventListener listener;
     private float time = 0;
     private ArrayList<TimelineEvent> remainingEvents = null;
     private ArrayList<TimelineEvent> allEvents = new ArrayList<>();
-
-    public Timeline(TimeEventListener listener) {
-        this.listener = listener;
-    }
 
     public void addEvent(float time, TimeEvent event) {
         allEvents.add(new TimelineEvent(time, event));
@@ -31,7 +26,7 @@ public class Timeline {
         time += delta;
         while (!remainingEvents.isEmpty() && remainingEvents.get(0).getTime() < time) {
             TimelineEvent timelineEvent = remainingEvents.remove(0);
-            listener.onEvent(timelineEvent.getEvent());
+            timelineEvent.getEvent().trigger();
         }
     }
 }

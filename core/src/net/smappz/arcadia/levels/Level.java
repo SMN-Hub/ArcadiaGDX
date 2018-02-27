@@ -5,14 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import net.smappz.arcadia.actors.Army;
 import net.smappz.arcadia.actors.Scroller;
 import net.smappz.arcadia.util.TimeEvent;
-import net.smappz.arcadia.util.TimeEventListener;
 import net.smappz.arcadia.util.Timeline;
 
-public abstract class Level implements TimeEventListener {
+public abstract class Level {
     protected Stage stage;
     protected Army army;
     private Scroller scroller;
-    final Timeline timeline = new Timeline(this);
+    final Timeline timeline = new Timeline();
 
     public void create(Stage stage, Army army) {
         this.stage = stage;
@@ -25,11 +24,6 @@ public abstract class Level implements TimeEventListener {
 
     public void act(float delta) {
         timeline.act(delta);
-    }
-
-    @Override
-    public void onEvent(TimeEvent event) {
-        event.trigger();//may be triggered by timeline directly if no override needed
     }
 
     void restartTimelineAt(float instant) {

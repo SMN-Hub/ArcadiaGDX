@@ -2,8 +2,7 @@ package net.smappz.arcadia.levels;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import net.smappz.arcadia.GameScreen;
-import net.smappz.arcadia.actors.AirEnemy;
+import net.smappz.arcadia.AbstractScreen;
 import net.smappz.arcadia.actors.AirSquadron;
 import net.smappz.arcadia.actors.Army;
 import net.smappz.arcadia.actors.SquadronWave;
@@ -26,13 +25,13 @@ public class Level_1 extends Level {
         loopFromLeft.addPoint(500, 500).addPoint(400, 300).addPoint(400, -30);
 
         final Route loopFromRight = new Route(loopFromLeft);
-        RouteDriver.reverse(loopFromRight, GameScreen.HEIGHT);
+        RouteDriver.reverse(loopFromRight, AbstractScreen.HEIGHT);
 
         final Route fromLeft = new Route();
         fromLeft.addPoint(100, -30).addPoint(200, 70).addPoint(300, 120).addPoint(1300, 200);
 
         final Route fromRight = new Route(fromLeft);
-        RouteDriver.reverse(fromRight, GameScreen.HEIGHT);
+        RouteDriver.reverse(fromRight, AbstractScreen.HEIGHT);
 
         final Route horizontal = new Route();
         horizontal.addPoint(200, -30).addPoint(200, 750);

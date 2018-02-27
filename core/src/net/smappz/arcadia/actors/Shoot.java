@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import net.smappz.arcadia.descriptors.ShotDescriptor;
 import net.smappz.arcadia.util.LinearDriver;
-import net.smappz.arcadia.actors.SpriteActor;
 
 public class Shoot extends SpriteActor {
     private final LinearDriver driver;
@@ -25,6 +24,10 @@ public class Shoot extends SpriteActor {
 
         // update position
         driver.act(delta, descriptor.getSpeed());
+
+        // prune if no longer visible
+        if (isOut())
+            remove();
     }
 
     public int getPower() {

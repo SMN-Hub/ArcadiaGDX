@@ -1,34 +1,32 @@
 package net.smappz.arcadia;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.SnapshotArray;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import net.smappz.arcadia.actors.*;
+import net.smappz.arcadia.actors.AirEnemy;
+import net.smappz.arcadia.actors.AirFighter;
+import net.smappz.arcadia.actors.AirSquadron;
+import net.smappz.arcadia.actors.Army;
+import net.smappz.arcadia.actors.Fireworks;
+import net.smappz.arcadia.actors.Shoot;
 import net.smappz.arcadia.levels.Level;
 
-public class GameScreen extends ScreenAdapter implements GameListener {
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+class GameScreen extends AbstractScreen implements GameListener {
 
-    private Stage stage;
     private AirFighter fighter;
     private Army army;
-    private net.smappz.arcadia.actors.Fireworks fireworks;
+    private Fireworks fireworks;
     private Level level;
 
     @Override
     public void show() {
         // Stage and actors
-        stage = new Stage(new StretchViewport(WIDTH, HEIGHT)); //ScreenViewport());
+        super.show();
         //stage.setDebugAll(true);
         fighter = new AirFighter(this);
         stage.addActor(fighter);
@@ -67,14 +65,10 @@ public class GameScreen extends ScreenAdapter implements GameListener {
     }
 
     @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+    protected void act(float delta) {
         level.act(delta);
         stage.act(delta);
         handleCollisions();
-        stage.draw();
     }
 
     private void handleCollisions() {
@@ -102,11 +96,6 @@ public class GameScreen extends ScreenAdapter implements GameListener {
 
         enemies.end();
         shoots.end();
-    }
-
-    @Override
-    public void dispose () {
-        stage.dispose();
     }
 
     @Override

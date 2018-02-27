@@ -2,12 +2,14 @@ package net.smappz.arcadia.util;
 
 import com.badlogic.gdx.math.Vector2;
 
+import net.smappz.arcadia.actors.SpriteActor;
+
 public class RouteDriver extends Driver{
     private final Route route;
     private float direction;
     private int targetIndex;
 
-    public RouteDriver(net.smappz.arcadia.actors.SpriteActor actor, Route route) {
+    public RouteDriver(SpriteActor actor, Route route) {
         super(actor);
         assert route.size() > 1;
         this.route = route;

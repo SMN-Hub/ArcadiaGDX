@@ -8,7 +8,6 @@ import net.smappz.arcadia.descriptors.GameDescriptor;
 import net.smappz.arcadia.descriptors.PlaneDescriptor;
 import net.smappz.arcadia.descriptors.ShotDescriptor;
 import net.smappz.arcadia.levels.Level;
-import net.smappz.arcadia.levels.Level_1;
 import net.smappz.arcadia.util.ResourceManager;
 
 public class ArcadiaGame extends Game {
@@ -18,6 +17,7 @@ public class ArcadiaGame extends Game {
 
     private SplashScreen splashScreen;
     private GameScreen gameScreen;
+	private MainMenuScreen mainMenuScreen;
 
     @Override
 	public void create() {
@@ -27,6 +27,7 @@ public class ArcadiaGame extends Game {
 
         splashScreen = new SplashScreen();
 		gameScreen = new GameScreen();
+		mainMenuScreen = new MainMenuScreen();
 
         splash();
 	}
@@ -47,6 +48,8 @@ public class ArcadiaGame extends Game {
 	@Override
 	public void dispose() {
 		gameScreen.dispose();
+		mainMenuScreen.dispose();
+		splashScreen.dispose();
 		RESOURCES.dispose();
 	}
 
@@ -55,17 +58,15 @@ public class ArcadiaGame extends Game {
 		Gdx.app.exit();
 	}
 
-	void splash() {
+	private void splash() {
         setScreen(splashScreen);
 	}
 
 	void enter() {
-        //TODO menu
-        startLevel();
+        setScreen(mainMenuScreen);
 	}
 
-	void startLevel() {
-        Level level = new Level_1();
+	void startLevel(Level level) {
         gameScreen.setLevel(level);
         setScreen(gameScreen);
 	}

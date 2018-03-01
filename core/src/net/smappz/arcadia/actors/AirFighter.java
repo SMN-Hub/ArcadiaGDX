@@ -26,11 +26,11 @@ public class AirFighter extends ShootableActor {
     private final ManualDriver driver;
 
     public AirFighter(GameListener listener) {
-        this(listener, 900, 360);
+        this(listener, 360, 200);
     }
 
     public AirFighter(GameListener listener, float initialX, float initialY) {
-        super(0f, 2f, ArcadiaGame.INSTANCE.getPlane(0));
+        super(-90f, 2f, ArcadiaGame.INSTANCE.getPlane(0));
         this.listener = listener;
         regions.put(Pitch.Left2, RESOURCES.getTextureRegion("plane01"));
         regions.put(Pitch.Left, RESOURCES.getTextureRegion("plane02"));
@@ -70,9 +70,9 @@ public class AirFighter extends ShootableActor {
         if (lastShoot > descriptor.getShootFrequency()) {
             if (shooting) {
                 // canon position
-                listener.friendlyShoot(1, centerCanon(), 180f);
-                listener.friendlyShoot(1, leftCanon(), 180f);
-                listener.friendlyShoot(1, rightCanon(), 180f);
+                listener.friendlyShoot(1, centerCanon(), 90f);
+                listener.friendlyShoot(1, leftCanon(), 90f);
+                listener.friendlyShoot(1, rightCanon(), 90f);
             }
             lastShoot = 0;
         }
@@ -94,12 +94,12 @@ public class AirFighter extends ShootableActor {
     }
 
     private Vector2 centerCanon() {
-        return new Vector2(getX(Align.left), getY(Align.center));
+        return new Vector2(getX(Align.center), getY(Align.top));
     }
     private Vector2 leftCanon() {
-        return new Vector2(getX(Align.center), getY(Align.bottom));
+        return new Vector2(getX(Align.left), getY(Align.center));
     }
     private Vector2 rightCanon() {
-        return new Vector2(getX(Align.center), getY(Align.top));
+        return new Vector2(getX(Align.right), getY(Align.center));
     }
 }

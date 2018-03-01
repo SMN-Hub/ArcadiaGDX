@@ -20,32 +20,32 @@ public class Level_1 extends Level {
 
     private void createEnemies() {
         final Route loopFromLeft = new Route();
-        loopFromLeft.addPoint(-30, 200).addPoint(600, 200).addPoint(900, 300).addPoint(1000, 400);
-        loopFromLeft.addPoint(900, 500).addPoint(800, 600).addPoint(700, 650).addPoint(600, 600);
-        loopFromLeft.addPoint(500, 500).addPoint(400, 300).addPoint(400, -30);
+        loopFromLeft.addPoint(200, 1310).addPoint(200, 680).addPoint(300, 380).addPoint(400, 280);
+        loopFromLeft.addPoint(500, 380).addPoint(600, 480).addPoint(650, 580).addPoint(600, 680);
+        loopFromLeft.addPoint(500, 780).addPoint(300, 880).addPoint(-30, 880);
 
         final Route loopFromRight = new Route(loopFromLeft);
-        RouteDriver.reverse(loopFromRight, AbstractScreen.HEIGHT);
+        RouteDriver.reverse(loopFromRight, AbstractScreen.WIDTH);
 
         final Route fromLeft = new Route();
-        fromLeft.addPoint(100, -30).addPoint(200, 70).addPoint(300, 120).addPoint(1300, 200);
+        fromLeft.addPoint(-30, 1200).addPoint(70, 1100).addPoint(120, 1000).addPoint(200, -30);
 
         final Route fromRight = new Route(fromLeft);
-        RouteDriver.reverse(fromRight, AbstractScreen.HEIGHT);
+        RouteDriver.reverse(fromRight, AbstractScreen.WIDTH);
 
         final Route horizontal = new Route();
-        horizontal.addPoint(200, -30).addPoint(200, 750);
+        horizontal.addPoint(-30, 1100).addPoint(750, 1100);
 
         final Route middle = new Route();
-        middle.addPoint(-30, 360).addPoint(1300, 360);
+        middle.addPoint(360, 1300).addPoint(360, -30);
 
         final Route middleLeft = new Route(middle);
-        RouteDriver.translate(middleLeft, 0, -3*Formation.DECAL_Y);
+        RouteDriver.translate(middleLeft, -3*Formation.DECAL_X, 0);
 
         final Route middleRight = new Route(middle);
-        RouteDriver.translate(middleRight, 0, 2*Formation.DECAL_Y);
+        RouteDriver.translate(middleRight, 2*Formation.DECAL_X, 0);
 
-        RouteDriver.translate(middle, 0, -2*Formation.DECAL_Y);
+        RouteDriver.translate(middle, -1.5f*Formation.DECAL_X, 0);
 
         TimeEvent wave1 = new SquadronWave() {
             @Override

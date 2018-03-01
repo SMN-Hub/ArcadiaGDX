@@ -11,7 +11,7 @@ public class Shoot extends SpriteActor {
     private final ShotDescriptor descriptor;
 
     public Shoot(TextureAtlas.AtlasRegion region, Vector2 position, float orientation, ShotDescriptor descriptor) {
-        super(90f, 4f);
+        super(0f, 4f);
         this.descriptor = descriptor;
         setImage(region);
         driver = new LinearDriver(this, position, orientation);

@@ -108,10 +108,10 @@ public class RouteDriver extends Driver{
         }
     }
 
-    public static void reverse(Route route, int height) {
+    public static void reverse(Route route, int size) {
         for (int i = 0; i < route.size(); i++) {
             Vector2 point = route.getPoint(i);
-            point.y = height - point.y;
+            point.x = size - point.x;
         }
     }
 }

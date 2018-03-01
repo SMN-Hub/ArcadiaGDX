@@ -7,8 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public abstract class AbstractScreen extends ScreenAdapter {
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+    public static final int WIDTH = 720;
+    public static final int HEIGHT = 1280;
 
     Stage stage;
 

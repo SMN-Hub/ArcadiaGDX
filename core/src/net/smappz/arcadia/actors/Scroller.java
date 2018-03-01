@@ -20,12 +20,12 @@ public class Scroller extends Actor {
     @Override
     public void act (float delta) {
         super.act(delta);
-        moveBy(SCROLL_SPEED * delta, 0);
+        moveBy(0, SCROLL_SPEED * delta);
     }
 
     @Override
     public void draw (Batch batch, float parentAlpha) {
-        batch.draw(background, 0, 0, (int) getX(), 0, WIDTH, HEIGHT);
+        batch.draw(background, 0, 0, 0, (int) getY(), WIDTH, HEIGHT);
     }
 
 }

@@ -15,7 +15,6 @@ public abstract class AbstractScreen extends ScreenAdapter {
     @Override
     public void show() {
         stage = new Stage(new StretchViewport(AbstractScreen.WIDTH, AbstractScreen.HEIGHT)); //ScreenViewport());
-
     }
 
     @Override
@@ -33,6 +32,7 @@ public abstract class AbstractScreen extends ScreenAdapter {
 
     @Override
     public void dispose () {
-        stage.dispose();
+        if (stage != null)
+            stage.dispose();
     }
 }

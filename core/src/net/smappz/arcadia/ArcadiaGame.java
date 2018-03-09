@@ -19,6 +19,12 @@ public class ArcadiaGame extends Game {
     private GameScreen gameScreen;
 	private MainMenuScreen mainMenuScreen;
 
+	private final boolean exitOnPause;
+
+    public ArcadiaGame(boolean exitOnPause) {
+        this.exitOnPause = exitOnPause;
+    }
+
     @Override
 	public void create() {
 		INSTANCE = this;
@@ -55,7 +61,8 @@ public class ArcadiaGame extends Game {
 
 	@Override
 	public void pause () {
-		Gdx.app.exit();
+        if (exitOnPause)
+		    Gdx.app.exit();
 	}
 
 	private void splash() {

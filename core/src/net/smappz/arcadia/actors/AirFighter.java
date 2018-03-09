@@ -99,9 +99,9 @@ public class AirFighter extends ShootableActor {
         return new Vector2(getX() + getHeight() / 2, getY());
     }
     private Vector2 leftCanon() {
-        return new Vector2(getX(Align.left), getY(Align.center));
+        return new Vector2(getX(Align.left), getY(Align.bottom));
     }
     private Vector2 rightCanon() {
-        return new Vector2(getX(Align.right), getY(Align.center));
+        return new Vector2(getX(Align.right), getY(Align.bottom));
     }
 }

@@ -11,6 +11,6 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = AbstractScreen.WIDTH;
 		config.height = AbstractScreen.HEIGHT;
-		new LwjglApplication(new ArcadiaGame(), config);
+		new LwjglApplication(new ArcadiaGame(false), config);
 	}
 }

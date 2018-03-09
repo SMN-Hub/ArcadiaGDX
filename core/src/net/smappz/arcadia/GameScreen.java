@@ -27,7 +27,7 @@ class GameScreen extends AbstractScreen implements GameListener {
     public void show() {
         // Stage and actors
         super.show();
-        //stage.setDebugAll(true);
+        stage.setDebugAll(true);
         fighter = new AirFighter(this);
         stage.addActor(fighter);
         fighter.setZIndex(100);

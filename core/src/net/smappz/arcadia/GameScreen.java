@@ -99,8 +99,8 @@ class GameScreen extends AbstractScreen implements GameListener {
     }
 
     @Override
-    public void friendlyShoot(int shootId, Vector2 origin, float orientation) {
-        fireworks.shoot(shootId, origin, orientation);
+    public Shoot friendlyShoot(int shootId, Vector2 origin, float orientation) {
+        return fireworks.shoot(shootId, origin, orientation);
     }
 
     void setLevel(Level level) {

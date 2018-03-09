@@ -12,10 +12,11 @@ import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
 public class Fireworks extends Group {
 
-    public void shoot(int shootId, Vector2 origin, float orientation) {
+    public Shoot shoot(int shootId, Vector2 origin, float orientation) {
         TextureAtlas.AtlasRegion region = RESOURCES.getTextureRegion(String.format("shot0%d", shootId));
         Shoot shoot = new Shoot(region, origin, orientation, ArcadiaGame.INSTANCE.getShot(shootId));
         addActor(shoot);
+        return shoot;
     }
 
     @Override

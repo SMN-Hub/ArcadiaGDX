@@ -70,9 +70,11 @@ public class AirFighter extends ShootableActor {
         if (lastShoot > descriptor.getShootFrequency()) {
             if (shooting) {
                 // canon position
-                listener.friendlyShoot(1, centerCanon(), 90f);
-                listener.friendlyShoot(1, leftCanon(), 90f);
-                listener.friendlyShoot(1, rightCanon(), 90f);
+                Shoot shoot = listener.friendlyShoot(1, centerCanon(), 90f);
+//                listener.friendlyShoot(1, leftCanon(), 90f);
+//                listener.friendlyShoot(1, rightCanon(), 90f);
+                System.out.println("Plan pos x=" + getX() + " y=" + getY());
+                System.out.println("Shoot pos x=" + shoot.getX() + " y=" + shoot.getY());
             }
             lastShoot = 0;
         }
@@ -94,7 +96,7 @@ public class AirFighter extends ShootableActor {
     }
 
     private Vector2 centerCanon() {
-        return new Vector2(getX(Align.center), getY(Align.top));
+        return new Vector2(getX() + getHeight() / 2, getY());
     }
     private Vector2 leftCanon() {
         return new Vector2(getX(Align.left), getY(Align.center));

@@ -1,0 +1,60 @@
+bonus.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+UP_P
+  rotate: false
+  xy: 0, 0
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+UP_M
+  rotate: false
+  xy: 24, 0
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+UP_H
+  rotate: false
+  xy: 48, 0
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+UP_R
+  rotate: false
+  xy: 72, 0
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+WP_E
+  rotate: false
+  xy: 96, 0
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+WP_3
+  rotate: false
+  xy: 120, 0
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+WP_B
+  rotate: false
+  xy: 144, 0
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+WP_M
+  rotate: false
+  xy: 168, 0
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1

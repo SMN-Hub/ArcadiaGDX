@@ -23,8 +23,8 @@ public class LinearDriver extends Driver {
 
     @Override
     public void start() {
-        actor.setPosition(origin);
         actor.setRotation(orientation);
+        actor.setPosition(origin);
     }
 
     @Override

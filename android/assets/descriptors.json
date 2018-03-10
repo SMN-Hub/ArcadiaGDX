@@ -37,7 +37,37 @@
       "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
       "id": 1,
       "power": 10,
-      "speed": 500
+      "speed": 600
+    },
+    {
+      "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
+      "id": 2,
+      "power": 20,
+      "speed": 600
+    },
+    {
+      "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
+      "id": 3,
+      "power": 30,
+      "speed": 600
+    },
+    {
+      "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
+      "id": 4,
+      "power": 50,
+      "speed": 600
+    },
+    {
+      "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
+      "id": 5,
+      "power": 70,
+      "speed": 600
+    },
+    {
+      "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
+      "id": 6,
+      "power": 10,
+      "speed": 300
     }
   ]
 }

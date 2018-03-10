@@ -10,3 +10,38 @@ shot01
   orig: 5, 9
   offset: 0, 0
   index: -1
+shot02
+  rotate: false
+  xy: 6, 0
+  size: 7, 14
+  orig: 7, 14
+  offset: 0, 0
+  index: -1
+shot03
+  rotate: false
+  xy: 14, 0
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+shot04
+  rotate: false
+  xy: 27, 0
+  size: 11, 23
+  orig: 11, 23
+  offset: 0, 0
+  index: -1
+shot05
+  rotate: false
+  xy: 39, 0
+  size: 22, 28
+  orig: 22, 28
+  offset: 0, 0
+  index: -1
+shot06
+  rotate: false
+  xy: 76, 0
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1

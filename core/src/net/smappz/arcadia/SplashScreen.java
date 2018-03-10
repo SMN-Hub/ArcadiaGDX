@@ -35,7 +35,7 @@ class SplashScreen extends AbstractScreen {
 
         Label.LabelStyle style = new Label.LabelStyle(RESOURCES.getFont(), fontColor);
         label = new Label("Arcadia GDX", style);
-        label.setFontScale(4);
+        //label.setFontScale(4);
         stage.addActor(label);
         label.setZIndex(200);
 
@@ -64,14 +64,14 @@ class SplashScreen extends AbstractScreen {
                 fighter.moveTo(360, 360);
             }
         });
-        timeline.addEvent(15, new TimeEvent() {
+        timeline.addEvent(13, new TimeEvent() {
             @Override
             public void trigger() {
                 stage.addActor(shoot);
                 shoot.setZIndex(20);
             }
         });
-        timeline.addEvent(25, new TimeEvent() {
+        timeline.addEvent(20, new TimeEvent() {
             @Override
             public void trigger() {
                 ArcadiaGame.INSTANCE.enter();

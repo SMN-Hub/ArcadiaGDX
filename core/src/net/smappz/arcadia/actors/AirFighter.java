@@ -73,8 +73,8 @@ public class AirFighter extends ShootableActor {
                 Shoot shoot = listener.friendlyShoot(1, centerCanon(), 90f);
 //                listener.friendlyShoot(1, leftCanon(), 90f);
 //                listener.friendlyShoot(1, rightCanon(), 90f);
-                System.out.println("Plan pos x=" + getX() + " y=" + getY());
-                System.out.println("Shoot pos x=" + shoot.getX() + " y=" + shoot.getY());
+                //System.out.println("Plan pos x=" + getX() + " y=" + getY());
+                //System.out.println("Shoot pos x=" + shoot.getX() + " y=" + shoot.getY());
             }
             lastShoot = 0;
         }

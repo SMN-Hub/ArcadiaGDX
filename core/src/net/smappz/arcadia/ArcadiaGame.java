@@ -2,6 +2,7 @@ package net.smappz.arcadia;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Json;
 
 import net.smappz.arcadia.descriptors.GameDescriptor;
@@ -64,6 +65,12 @@ public class ArcadiaGame extends Game {
         if (exitOnPause)
 		    Gdx.app.exit();
 	}
+
+	public GameListener getListener() {
+        Screen screen = getScreen();
+        return (screen instanceof GameListener) ? (GameListener)screen : null;
+    }
+
 
 	private void splash() {
         setScreen(splashScreen);

@@ -5,6 +5,7 @@
       "id": 0,
       "speed": 800,
       "life": 100,
+      "shoot": 1,
       "shootFrequency": 0.2
     },
     {
@@ -17,7 +18,8 @@
       "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
       "id": 2,
       "speed": 400,
-      "life": 20
+      "life": 20,
+      "bonus": true
     },
     {
       "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
@@ -29,7 +31,9 @@
       "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
       "id": 4,
       "speed": 400,
-      "life": 20
+      "life": 20,
+      "shoot": 6,
+      "shootFrequency": 0.2
     }
   ],
   "shots": [

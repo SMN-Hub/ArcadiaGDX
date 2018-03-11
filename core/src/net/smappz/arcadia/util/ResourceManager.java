@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class ResourceManager {
     private final TextureAtlas enemyTextures;
     private final TextureAtlas bonusTextures;
     private final Texture backGround;
-    private final Map<String,TextureAtlas.AtlasRegion> regions = new HashMap<>();
+    private final Map<String,AtlasRegion> regions = new HashMap<>();
     private final BitmapFont font;
 
     public ResourceManager() {
@@ -32,8 +33,8 @@ public class ResourceManager {
         generator.dispose();
     }
 
-    public TextureAtlas.AtlasRegion getTextureRegion(String id) {
-        TextureAtlas.AtlasRegion region = regions.get(id);
+    public AtlasRegion getTextureRegion(String id) {
+        AtlasRegion region = regions.get(id);
         if (region == null) {
             TextureAtlas atlas;
             if (id.startsWith("shot")) {

@@ -12,18 +12,25 @@ public class LinearDriver extends Driver {
     private final float orientation;
     private final double alphaX;
     private final double alphaY;
+    private final boolean rotate;
 
     public LinearDriver(SpriteActor actor, Vector2 origin, float orientation) {
+        this(actor, origin, orientation, true);
+    }
+
+    public LinearDriver(SpriteActor actor, Vector2 origin, float orientation, boolean rotate) {
         super(actor);
         this.origin = origin;
         this.orientation = orientation;
+        this.rotate = rotate;
         alphaX = Math.cos(Math.toRadians(orientation));
         alphaY = Math.sin(Math.toRadians(orientation));
     }
 
     @Override
     public void start() {
-        actor.setRotation(orientation);
+        if (rotate)
+            actor.setRotation(orientation);
         actor.setPosition(origin);
     }
 

@@ -3,6 +3,7 @@ package net.smappz.arcadia.actors;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
+import net.smappz.arcadia.ArcadiaGame;
 import net.smappz.arcadia.util.Route;
 import net.smappz.arcadia.util.RouteDriver;
 
@@ -133,5 +134,6 @@ public class AirEnemy extends ShootableActor {
         // start destroy animation
         destroyDuration = 0;
         stepDestroy();
+        ArcadiaGame.INSTANCE.getListener().onEnemyDestroy(this);
     }
 }

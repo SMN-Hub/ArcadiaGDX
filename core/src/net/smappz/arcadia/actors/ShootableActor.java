@@ -10,12 +10,26 @@ abstract class ShootableActor extends SpriteActor {
 
     protected ShootableActor(float actorToSprite, float spriteScale, PlaneDescriptor descriptor) {
         super(actorToSprite, spriteScale);
-        this.descriptor = descriptor;
+        this.descriptor = descriptor.clone();
         currentLife = descriptor.getLife();
     }
 
+    public int getCurrentLife() {
+        return currentLife;
+    }
+
+    public void increaseCurrentLife() {
+        currentLife += 30;
+        if (currentLife > descriptor.getLife())
+            currentLife = descriptor.getLife();
+    }
+
     public void onShoot(Shoot shoot) {
-        currentLife -= shoot.getPower();
+        onDamage(shoot.getPower());
+    }
+
+    public void onDamage(int damage) {
+        currentLife -= damage;
         if (currentLife <= 0) {
             onDestroyed();
         }
@@ -30,5 +44,9 @@ abstract class ShootableActor extends SpriteActor {
         setVisible(true);
         setTouchable(Touchable.enabled);
         currentLife = descriptor.getLife();
+    }
+
+    public PlaneDescriptor getDescriptor() {
+        return descriptor;
     }
 }

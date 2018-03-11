@@ -2,6 +2,7 @@ package net.smappz.arcadia.actors;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Align;
 
 import net.smappz.arcadia.ArcadiaGame;
@@ -22,16 +23,15 @@ public class AirFighter extends ShootableActor {
     private Map<Pitch,TextureAtlas.AtlasRegion> regions = new HashMap<>();
     private boolean shooting = false;
     private float lastShoot = 0f;
-    private final GameListener listener;
+    private int cannonRange = 1;
     private final ManualDriver driver;
 
-    public AirFighter(GameListener listener) {
-        this(listener, 360, 200);
+    public AirFighter() {
+        this(360, 200);
     }
 
-    public AirFighter(GameListener listener, float initialX, float initialY) {
+    public AirFighter(float initialX, float initialY) {
         super(-90f, 2f, ArcadiaGame.INSTANCE.getPlane(0));
-        this.listener = listener;
         regions.put(Pitch.Left2, RESOURCES.getTextureRegion("plane01"));
         regions.put(Pitch.Left, RESOURCES.getTextureRegion("plane02"));
         regions.put(Pitch.Flat, RESOURCES.getTextureRegion("plane03"));
@@ -69,10 +69,22 @@ public class AirFighter extends ShootableActor {
         lastShoot += delta;
         if (lastShoot > descriptor.getShootFrequency()) {
             if (shooting) {
+                GameListener listener = ArcadiaGame.INSTANCE.getListener();
                 // canon position
-                Shoot shoot = listener.friendlyShoot(1, centerCanon(), 90f);
-//                listener.friendlyShoot(1, leftCanon(), 90f);
-//                listener.friendlyShoot(1, rightCanon(), 90f);
+                listener.friendlyShoot(descriptor.getShootId(), centerCanon(), 90f);
+                switch (cannonRange) {
+                    case 5:
+                        listener.friendlyShoot(3, backCanon(), -90f);
+                    case 4:
+                        listener.friendlyShoot(1, leftCanon(), 180f);
+                        listener.friendlyShoot(1, rightCanon(), 0f);
+                    case 3:
+                        listener.friendlyShoot(1, leftCanon(), 135f);
+                        listener.friendlyShoot(1, rightCanon(), 45f);
+                    case 2:
+                        listener.friendlyShoot(1, leftCanon(), 90f);
+                        listener.friendlyShoot(1, rightCanon(), 90f);
+                }
                 //System.out.println("Plan pos x=" + getX() + " y=" + getY());
                 //System.out.println("Shoot pos x=" + shoot.getX() + " y=" + shoot.getY());
             }
@@ -95,13 +107,29 @@ public class AirFighter extends ShootableActor {
         }
     }
 
+    @Override
+    protected void onDestroyed() {
+        // TODO destroy animation
+        setVisible(false);
+        setTouchable(Touchable.disabled);
+        ArcadiaGame.INSTANCE.getListener().onFighterDestroy();
+    }
+
     private Vector2 centerCanon() {
         return new Vector2(getX() + getHeight() / 2, getY());
     }
     private Vector2 leftCanon() {
-        return new Vector2(getX(Align.left), getY(Align.bottom));
+        return new Vector2(getX(), getY() - getWidth() / 2);
     }
     private Vector2 rightCanon() {
-        return new Vector2(getX(Align.right), getY(Align.bottom));
+        return new Vector2(getX() + getHeight(), getY() - getWidth() / 2);
+    }
+    private Vector2 backCanon() {
+        return new Vector2(getX() + getHeight() / 2, getY() - getWidth());
+    }
+
+    public void increaseCannons() {
+        if (cannonRange < 5)
+            cannonRange++;
     }
 }

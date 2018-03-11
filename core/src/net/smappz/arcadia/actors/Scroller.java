@@ -9,7 +9,7 @@ import static net.smappz.arcadia.AbstractScreen.WIDTH;
 import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
 public class Scroller extends Actor {
-    private static final float SCROLL_SPEED = -40;
+    static final float SCROLL_SPEED = -40;
     private Texture background;
 
     public Scroller() {

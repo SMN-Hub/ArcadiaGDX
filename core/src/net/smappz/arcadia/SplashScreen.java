@@ -39,7 +39,7 @@ class SplashScreen extends AbstractScreen {
         stage.addActor(label);
         label.setZIndex(200);
 
-        fighter = new AirFighter(null, 360, -150);
+        fighter = new AirFighter(360, -150);
         stage.addActor(fighter);
         fighter.setZIndex(100);
 

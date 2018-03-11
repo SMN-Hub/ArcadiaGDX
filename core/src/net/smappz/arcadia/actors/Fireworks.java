@@ -19,6 +19,13 @@ public class Fireworks extends Group {
         return shoot;
     }
 
+    public BonusContainer bonus(Bonus bonusCode, Vector2 origin) {
+        TextureAtlas.AtlasRegion region = RESOURCES.getTextureRegion(bonusCode.name());
+        BonusContainer bonusContainer = new BonusContainer(region, origin, bonusCode);
+        addActor(bonusContainer);
+        return bonusContainer;
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta);

@@ -108,6 +108,12 @@ public class AirFighter extends ShootableActor {
     }
 
     @Override
+    public void onDamage(int damage) {
+        super.onDamage(damage);
+        ArcadiaGame.INSTANCE.getListener().onFighterDamage(damage);
+    }
+
+    @Override
     protected void onDestroyed() {
         // TODO destroy animation
         setVisible(false);

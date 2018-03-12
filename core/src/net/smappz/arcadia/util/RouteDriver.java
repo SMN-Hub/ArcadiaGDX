@@ -68,18 +68,7 @@ public class RouteDriver extends Driver{
         if (targetIndex >= 0) {
             Vector2 target = route.getPoint(targetIndex);
             float lastRotation = actor.getRotation();
-            float deltaX = target.x - actor.getX();
-            float deltaY = target.y - actor.getY();
-            float angle;
-            if (deltaX == 0f) {
-                angle = (target.y > actor.getY()) ? 90 : 270;
-            } else if (deltaY == 0f) {
-                angle = (target.x > actor.getX()) ? 0 : 180;
-            } else {
-                angle = (float) Math.toDegrees(Math.atan(deltaY / deltaX));
-                if (deltaX < 0)
-                    angle += 180;
-            }
+            float angle = computeAngle(actor.getPosition(), target);
             actor.setRotation(angle);
             direction = actor.getRotation() - lastRotation;
         }

@@ -33,7 +33,7 @@
       "speed": 400,
       "life": 20,
       "shoot": 6,
-      "shootFrequency": 0.2
+      "shootFrequency": 1
     }
   ],
   "shots": [

@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.SnapshotArray;
 
 import net.smappz.arcadia.ArcadiaGame;
+import net.smappz.arcadia.util.Driver;
 
 import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
@@ -17,6 +18,10 @@ public class Fireworks extends Group {
         Shoot shoot = new Shoot(region, origin, orientation, ArcadiaGame.INSTANCE.getShot(shootId));
         addActor(shoot);
         return shoot;
+    }
+
+    public Shoot shoot(int shootId, Vector2 origin, Vector2 target) {
+        return shoot(shootId, origin, Driver.computeAngle(origin, target));
     }
 
     public BonusContainer bonus(Bonus bonusCode, Vector2 origin) {

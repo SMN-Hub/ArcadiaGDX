@@ -27,7 +27,7 @@ public class ResourceManager {
         backGround = new Texture(Gdx.files.internal("space_0.png"));
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("MATURASC.TTF"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 16;
+        parameter.size = 32;
         font = generator.generateFont(parameter);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         generator.dispose();

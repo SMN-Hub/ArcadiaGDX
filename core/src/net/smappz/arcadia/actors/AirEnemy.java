@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import net.smappz.arcadia.ArcadiaGame;
+import net.smappz.arcadia.GameListener;
 import net.smappz.arcadia.util.Route;
 import net.smappz.arcadia.util.RouteDriver;
 
@@ -27,6 +28,7 @@ public class AirEnemy extends ShootableActor {
     private int destroyStep = -1;
     private float destroyDuration = -1;
     private final RouteDriver driver;
+    private float lastShoot = 0f;
     private boolean cycle = false;
 
     AirEnemy(int plane, Route route) {
@@ -75,8 +77,6 @@ public class AirEnemy extends ShootableActor {
 
     @Override
     public void act (float delta) {
-        super.act(delta);
-
         // Cycle execution
         if (driver.isOver()) {
             if (cycle) {
@@ -85,6 +85,11 @@ public class AirEnemy extends ShootableActor {
                 setVisible(false);
             }
         }
+        if (!isVisible())
+            return;
+
+        super.act(delta);
+
         // update position
         driver.act(delta, descriptor.getSpeed());
 
@@ -115,6 +120,15 @@ public class AirEnemy extends ShootableActor {
             if (pitchDuration > TIME_TO_PITCH) {
                 updateFrame(Pitch.Flat);
                 pitchDuration = -1;
+            }
+        }
+        // shoot
+        if (descriptor.getShootId() != -1) {
+            lastShoot += delta;
+            if (lastShoot > descriptor.getShootFrequency()) {
+                GameListener listener = ArcadiaGame.INSTANCE.getListener();
+                listener.enemyHomingShoot(descriptor.getShootId(), getPosition());
+                lastShoot = 0;
             }
         }
     }

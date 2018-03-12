@@ -1,7 +1,7 @@
 package net.smappz.arcadia.util;
 
 public class FloatUtil {
-    private static final float EPSILON = 0.01f;
+    private static final float EPSILON = 0.001f;
     private FloatUtil() {}
 
     public static boolean equals(float x, float y) {

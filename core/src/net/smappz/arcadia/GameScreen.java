@@ -15,11 +15,10 @@ import net.smappz.arcadia.actors.Army;
 import net.smappz.arcadia.actors.Bonus;
 import net.smappz.arcadia.actors.BonusContainer;
 import net.smappz.arcadia.actors.Fireworks;
+import net.smappz.arcadia.actors.HUD;
 import net.smappz.arcadia.actors.Shoot;
-import net.smappz.arcadia.descriptors.PlaneDescriptor;
+import net.smappz.arcadia.descriptors.LevelScore;
 import net.smappz.arcadia.levels.Level;
-
-import java.util.List;
 
 class GameScreen extends AbstractScreen implements GameListener {
     private int lastBonus = -1;
@@ -29,9 +28,12 @@ class GameScreen extends AbstractScreen implements GameListener {
     private Fireworks friendlyWorks;
     private Fireworks enemyWorks;
     private Fireworks bonusWorks;
+    private HUD hud;
     private Level level;
+    private final LevelScore score;
 
     GameScreen() {
+        score = new LevelScore();
     }
 
     @Override
@@ -57,7 +59,11 @@ class GameScreen extends AbstractScreen implements GameListener {
 
         army = new Army();
         stage.addActor(army);
-        fighter.setZIndex(10);
+        army.setZIndex(10);
+
+        hud = new HUD(score, fighter);
+        stage.addActor(hud);
+        hud.toFront();
 
         level.create(stage, army);
 
@@ -181,6 +187,11 @@ class GameScreen extends AbstractScreen implements GameListener {
     }
 
     @Override
+    public Shoot enemyHomingShoot(int shootId, Vector2 origin) {
+        return enemyWorks.shoot(shootId, origin, fighter.getPosition());
+    }
+
+    @Override
     public void onEnemyDestroy(AirEnemy plane) {
         if (plane.getDescriptor().hasBonus()) {
             // drop random bonus
@@ -189,6 +200,12 @@ class GameScreen extends AbstractScreen implements GameListener {
                 lastBonus = 0;
             bonusWorks.bonus(Bonus.values()[lastBonus], plane.getPosition());
         }
+        score.increaseScore();
+    }
+
+    @Override
+    public void onFighterDamage(int damage) {
+        score.increaseDamages(damage);
     }
 
     @Override

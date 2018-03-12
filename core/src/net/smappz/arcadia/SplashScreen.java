@@ -83,12 +83,12 @@ class SplashScreen extends AbstractScreen {
     public void act(float delta) {
         if (fontColor.a < 1) {
             fontColor.a += delta / FADE;
-            label.setFontScale(4 + fontColor.a);
+            label.setFontScale(2 + fontColor.a);
             label.setY(1200 - fontColor.a * 200);
             label.setX(WIDTH / 2 - label.getPrefWidth() / 2);
         }
         timeline.act(delta);
-        if (shoot.isVisible() && shoot.getY() > label.getY() - label.getPrefHeight()) {
+        if (shoot.isVisible() && shoot.getY() > label.getY()) {
             shoot.setVisible(false);
             fontColor.set(0xff6c11ff);
             label.invalidateHierarchy();

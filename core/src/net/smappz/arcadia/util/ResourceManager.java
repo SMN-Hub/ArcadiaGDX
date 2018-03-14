@@ -1,11 +1,14 @@
 package net.smappz.arcadia.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +21,8 @@ public class ResourceManager {
     private final Texture backGround;
     private final Map<String,AtlasRegion> regions = new HashMap<>();
     private final BitmapFont font;
+    private final Pixmap fadePixel;
+    private final Texture fadeTexture;
 
     public ResourceManager() {
         shotTextures = new TextureAtlas(Gdx.files.internal("shots.atlas"));
@@ -29,8 +34,14 @@ public class ResourceManager {
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 32;
         font = generator.generateFont(parameter);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         generator.dispose();
+        fadePixel = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        fadePixel.setColor(1, 1, 1, 1);
+        fadePixel.fill();
+        PixmapTextureData textureData = new PixmapTextureData(fadePixel, Pixmap.Format.RGBA8888, false, false, true);
+        fadeTexture = new Texture(textureData);
+        fadeTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
     }
 
     public AtlasRegion getTextureRegion(String id) {
@@ -60,11 +71,17 @@ public class ResourceManager {
         return font;
     }
 
+    public Texture getFadeTexture() {
+        return fadeTexture;
+    }
+
     public void dispose() {
         shotTextures.dispose();
         fighterTextures.dispose();
         enemyTextures.dispose();
         backGround.dispose();
         font.dispose();
+        fadePixel.dispose();
+        fadeTexture.dispose();
     }
 }

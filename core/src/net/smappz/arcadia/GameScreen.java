@@ -146,6 +146,9 @@ class GameScreen extends AbstractScreen implements GameListener {
     }
 
     private void handleEnemyFireCollisions() {
+        if (!fighter.isVisible())
+            return;
+
         SnapshotArray<Actor> shoots = enemyWorks.getChildren();
         Actor[] shootItems = shoots.begin();
 
@@ -210,7 +213,7 @@ class GameScreen extends AbstractScreen implements GameListener {
 
     @Override
     public void onFighterDestroy() {
-
+        hud.gameOver();
     }
 
     void setLevel(Level level) {

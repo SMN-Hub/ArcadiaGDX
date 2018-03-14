@@ -2,10 +2,15 @@ package net.smappz.arcadia.descriptors;
 
 @SuppressWarnings({"FieldCanBeLocal", "unused"})
 public class PlaneDescriptor implements Cloneable {
+    private static final int MAX_MULTIPLY = 5;
+
     private int id;
     private float speed;
+    private int speedMultiplier = 1;
     private int life;
+    private int lifeMultiplier = 1;
     private float shootFrequency = 0.f;
+    private int shootMultiplier = 1;
     private int shoot = -1;
     private boolean bonus = false;
 
@@ -14,11 +19,11 @@ public class PlaneDescriptor implements Cloneable {
     }
 
     public float getSpeed() {
-        return speed;
+        return speed + (speedMultiplier - 1) * 100;
     }
 
     public void increaseSpeed() {
-        speed += 100;
+        speedMultiplier = increaseMultiplier(speedMultiplier);
     }
 
     public int getLife() {
@@ -26,12 +31,11 @@ public class PlaneDescriptor implements Cloneable {
     }
 
     public float getShootFrequency() {
-        return shootFrequency;
+        return shootFrequency + (shootMultiplier - 1) * 0.02f;
     }
 
     public void increaseFrequency() {
-        if (shootFrequency > 0.1)
-            shootFrequency -= 0.02;
+        shootMultiplier = increaseMultiplier(shootMultiplier);
     }
 
     public int getShootId() {
@@ -39,8 +43,7 @@ public class PlaneDescriptor implements Cloneable {
     }
 
     public void increaseShoot() {
-        if (shoot < 5)
-            shoot++;
+        shoot = increaseMultiplier(shoot);
     }
 
     public boolean hasBonus() {
@@ -57,5 +60,12 @@ public class PlaneDescriptor implements Cloneable {
             throw new RuntimeException("superclass messed up", ex);
         }
         return clone;
+    }
+
+    private int increaseMultiplier(int multiplier) {
+        if (multiplier < MAX_MULTIPLY) {
+            multiplier++;
+        }
+        return multiplier;
     }
 }

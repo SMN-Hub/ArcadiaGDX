@@ -50,7 +50,8 @@ public class AirFighter extends ShootableActor {
     }
 
     public void moveTo(float x, float y) {
-        driver.setTarget(x, y);
+        if (isVisible())
+            driver.setTarget(x, y);
     }
 
     private void updateFrame(Pitch newPitch) {
@@ -60,6 +61,9 @@ public class AirFighter extends ShootableActor {
 
     @Override
     public void act (float delta) {
+        if (!isVisible())
+            return;
+
         super.act(delta);
 
         // update position

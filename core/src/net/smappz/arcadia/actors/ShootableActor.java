@@ -31,6 +31,7 @@ abstract class ShootableActor extends SpriteActor {
     public void onDamage(int damage) {
         currentLife -= damage;
         if (currentLife <= 0) {
+            currentLife = 0;
             onDestroyed();
         }
     }

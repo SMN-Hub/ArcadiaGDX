@@ -21,7 +21,15 @@ import net.smappz.arcadia.descriptors.LevelScore;
 import net.smappz.arcadia.levels.Level;
 
 class GameScreen extends AbstractScreen implements GameListener {
+    private enum Status {
+        Launching,
+        Running,
+        Success,
+        Fail;
+    }
+
     private int lastBonus = -1;
+    private Status status;
 
     private AirFighter fighter;
     private Army army;
@@ -38,6 +46,7 @@ class GameScreen extends AbstractScreen implements GameListener {
 
     @Override
     public void show() {
+        status = Status.Launching;
         // Stage and actors
         super.show();
         //stage.setDebugAll(true);
@@ -66,12 +75,18 @@ class GameScreen extends AbstractScreen implements GameListener {
         hud.toFront();
 
         level.create(stage, army);
+        level.setPause(true);
 
         // controls
         Gdx.input.setInputProcessor(stage);
         stage.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                switch (status) {
+                    case Launching:
+                        level.setPause(false);
+                        status = Status.Running;
+                }
                 fighter.setShooting(true);
                 fighter.moveTo(x, y);
                 return true;
@@ -213,7 +228,15 @@ class GameScreen extends AbstractScreen implements GameListener {
 
     @Override
     public void onFighterDestroy() {
+        status = Status.Fail;
+        level.setPause(true);
         hud.gameOver();
+    }
+
+    @Override
+    public void finish() {
+        status = Status.Success;
+        hud.finish();
     }
 
     void setLevel(Level level) {

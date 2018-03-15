@@ -1,10 +1,7 @@
 package net.smappz.arcadia.levels;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
-
 import net.smappz.arcadia.AbstractScreen;
 import net.smappz.arcadia.actors.AirSquadron;
-import net.smappz.arcadia.actors.Army;
 import net.smappz.arcadia.actors.SquadronWave;
 import net.smappz.arcadia.util.Formation;
 import net.smappz.arcadia.util.Route;
@@ -13,8 +10,8 @@ import net.smappz.arcadia.util.TimeEvent;
 
 public class Level_1 extends Level {
 
-    public void create(Stage stage, Army army) {
-        super.create(stage, army);
+    @Override
+    protected void buildTimeLine() {
         createEnemies();
     }
 

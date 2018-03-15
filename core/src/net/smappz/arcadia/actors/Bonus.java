@@ -5,7 +5,7 @@ public enum Bonus {
     UP_M("Motor upgrade"),
     UP_H("Health"),
     UP_R("Charge up"),
-//    WP_E("electric weapo"),
+//    WP_E("electric weapon"),
     WP_3("More canons"),
 //    WP_B("Mines"),
 //    WP_M("Homing missiles"),

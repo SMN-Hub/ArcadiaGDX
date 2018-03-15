@@ -13,4 +13,6 @@ public interface GameListener {
     void onEnemyDestroy(AirEnemy plane);
     void onFighterDamage(int damage);
     void onFighterDestroy();
+
+    void finish();
 }

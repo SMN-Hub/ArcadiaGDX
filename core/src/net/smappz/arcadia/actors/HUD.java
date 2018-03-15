@@ -59,4 +59,10 @@ public class HUD extends Group {
         fader.setActive(true);
         gameOver.setVisible(true);
     }
+
+    public void finish() {
+        gameOver.setText("Level complete");
+        gameOver.setPosition(WIDTH / 2 - gameOver.getPrefWidth() / 2, 800);
+        gameOver();
+    }
 }

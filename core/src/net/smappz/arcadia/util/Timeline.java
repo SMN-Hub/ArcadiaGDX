@@ -5,11 +5,20 @@ import java.util.Collections;
 
 public class Timeline {
     private float time = 0;
+    private boolean pause = false;
     private ArrayList<TimelineEvent> remainingEvents = null;
     private ArrayList<TimelineEvent> allEvents = new ArrayList<>();
 
     public void addEvent(float time, TimeEvent event) {
         allEvents.add(new TimelineEvent(time, event));
+    }
+
+    public void addEvent(float time, int countDown, TimeEvent event, TimeEvent eventAfter) {
+        allEvents.add(new TimelineEvent(time, countDown, event, eventAfter));
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 
     public void restart() {
@@ -20,8 +29,8 @@ public class Timeline {
     }
 
     public void act(float delta) {
-        if (remainingEvents == null) {
-            restart();
+        if (pause || remainingEvents == null) {
+            return;
         }
         time += delta;
         while (!remainingEvents.isEmpty() && remainingEvents.get(0).getTime() < time) {

@@ -72,6 +72,7 @@ public class AirEnemy extends ShootableActor {
         destroyDuration = -1;
         destroyStep = -1;
         reset();
+        updateFrame(Pitch.Flat);
         driver.start();
     }
 
@@ -85,13 +86,13 @@ public class AirEnemy extends ShootableActor {
                 setVisible(false);
             }
         }
-        if (!isVisible())
-            return;
-
         super.act(delta);
 
         // update position
         driver.act(delta, descriptor.getSpeed());
+
+        if (!isVisible())
+            return;
 
         // update destruction
         if (destroyDuration >= 0) {

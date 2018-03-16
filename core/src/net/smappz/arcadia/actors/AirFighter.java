@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Align;
 
 import net.smappz.arcadia.ArcadiaGame;
 import net.smappz.arcadia.GameListener;
+import net.smappz.arcadia.descriptors.PlaneDescriptor;
 import net.smappz.arcadia.util.ManualDriver;
 
 import java.util.HashMap;
@@ -15,30 +16,17 @@ import java.util.Map;
 import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
 
-public class AirFighter extends ShootableActor {
+public abstract class AirFighter extends ShootableActor {
     private static final float PITCH_LEVEL_1 = 100f;
     private static final float PITCH_LEVEL_2 = 200f;
 
-    private Pitch pitch = Pitch.Flat;
-    private Map<Pitch,TextureAtlas.AtlasRegion> regions = new HashMap<>();
     private boolean shooting = false;
     private float lastShoot = 0f;
     private int cannonRange = 1;
     private final ManualDriver driver;
 
-    public AirFighter() {
-        this(360, 200);
-    }
-
-    public AirFighter(float initialX, float initialY) {
-        super(-90f, 2f, ArcadiaGame.INSTANCE.getPlane(0));
-        regions.put(Pitch.Left2, RESOURCES.getTextureRegion("plane01"));
-        regions.put(Pitch.Left, RESOURCES.getTextureRegion("plane02"));
-        regions.put(Pitch.Flat, RESOURCES.getTextureRegion("plane03"));
-        regions.put(Pitch.Right, RESOURCES.getTextureRegion("plane04"));
-        regions.put(Pitch.Right2, RESOURCES.getTextureRegion("plane05"));
-
-        setImage(regions.get(pitch));
+    public AirFighter(float actorToSprite, float spriteScale, PlaneDescriptor descriptor, float initialX, float initialY) {
+        super(actorToSprite, spriteScale, descriptor);
 
         driver = new ManualDriver(this, new Vector2(initialX, initialY));
         driver.start();
@@ -54,10 +42,7 @@ public class AirFighter extends ShootableActor {
             driver.setTarget(x, y);
     }
 
-    private void updateFrame(Pitch newPitch) {
-        pitch = newPitch;
-        setImage(regions.get(pitch));
-    }
+    protected abstract void updateFrame(Pitch newPitch);
 
     @Override
     public void act (float delta) {
@@ -106,9 +91,7 @@ public class AirFighter extends ShootableActor {
             newPitch = Pitch.Left2;
         else if (deltaY < -PITCH_LEVEL_1)
             newPitch = Pitch.Left;
-        if (newPitch != pitch) {
-            updateFrame(newPitch);
-        }
+        updateFrame(newPitch);
     }
 
     @Override

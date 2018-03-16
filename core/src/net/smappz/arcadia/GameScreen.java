@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.SnapshotArray;
 
 import net.smappz.arcadia.actors.AirEnemy;
 import net.smappz.arcadia.actors.AirFighter;
+import net.smappz.arcadia.actors.AirFighter2;
 import net.smappz.arcadia.actors.AirSquadron;
 import net.smappz.arcadia.actors.Army;
 import net.smappz.arcadia.actors.Bonus;
@@ -50,7 +51,7 @@ class GameScreen extends AbstractScreen implements GameListener {
         // Stage and actors
         super.show();
         //stage.setDebugAll(true);
-        fighter = new AirFighter();
+        fighter = new AirFighter2();
         stage.addActor(fighter);
         fighter.setZIndex(100);
 

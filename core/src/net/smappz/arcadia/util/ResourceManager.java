@@ -16,6 +16,7 @@ import java.util.Map;
 public class ResourceManager {
     private final TextureAtlas shotTextures;
     private final TextureAtlas fighterTextures;
+    private final TextureAtlas fighter2Textures;
     private final TextureAtlas enemyTextures;
     private final TextureAtlas bonusTextures;
     private final Texture backGround;
@@ -27,6 +28,7 @@ public class ResourceManager {
     public ResourceManager() {
         shotTextures = new TextureAtlas(Gdx.files.internal("shots.atlas"));
         fighterTextures = new TextureAtlas(Gdx.files.internal("PlanesSmall.atlas"));
+        fighter2Textures = new TextureAtlas(Gdx.files.internal("terron.atlas"));
         enemyTextures = new TextureAtlas(Gdx.files.internal("enemy.atlas"));
         bonusTextures = new TextureAtlas(Gdx.files.internal("bonus.atlas"));
         backGround = new Texture(Gdx.files.internal("space_0.png"));
@@ -52,6 +54,8 @@ public class ResourceManager {
                 atlas = shotTextures;
             } else if (id.startsWith("plane")) {
                 atlas = fighterTextures;
+            } else if (id.startsWith("terron")) {
+                atlas = fighter2Textures;
             } else if (id.startsWith("UP_") || id.startsWith("WP_")) {
                 atlas = bonusTextures;
             } else {

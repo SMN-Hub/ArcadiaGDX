@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import net.smappz.arcadia.actors.AirFighter;
+import net.smappz.arcadia.actors.AirFighter2;
 import net.smappz.arcadia.actors.Scroller;
 import net.smappz.arcadia.actors.Shoot;
 import net.smappz.arcadia.util.TimeEvent;
@@ -39,7 +40,7 @@ class SplashScreen extends AbstractScreen {
         stage.addActor(label);
         label.setZIndex(200);
 
-        fighter = new AirFighter(360, -150);
+        fighter = new AirFighter2(360, -150);
         stage.addActor(fighter);
         fighter.setZIndex(100);
 

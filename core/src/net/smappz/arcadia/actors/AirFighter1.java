@@ -23,7 +23,7 @@ public class AirFighter1 extends AirFighter {
     }
 
     public AirFighter1(float initialX, float initialY) {
-        super(-90f, 2f, ArcadiaGame.INSTANCE.getPlane(0), initialX, initialY);
+        super(-90f, 2f, 1f, ArcadiaGame.INSTANCE.getPlane(0), initialX, initialY);
         regions.put(Pitch.Left2, RESOURCES.getTextureRegion("plane01"));
         regions.put(Pitch.Left, RESOURCES.getTextureRegion("plane02"));
         regions.put(Pitch.Flat, RESOURCES.getTextureRegion("plane03"));
@@ -31,6 +31,7 @@ public class AirFighter1 extends AirFighter {
         regions.put(Pitch.Right2, RESOURCES.getTextureRegion("plane05"));
 
         setImage(regions.get(pitch));
+        start();
     }
 
     @Override

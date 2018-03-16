@@ -9,7 +9,11 @@ abstract class ShootableActor extends SpriteActor {
     protected final PlaneDescriptor descriptor;
 
     protected ShootableActor(float actorToSprite, float spriteScale, PlaneDescriptor descriptor) {
-        super(actorToSprite, spriteScale);
+        this(actorToSprite, spriteScale, 1, descriptor);
+    }
+
+    protected ShootableActor(float actorToSprite, float spriteScale, float actorScale, PlaneDescriptor descriptor) {
+        super(actorToSprite, spriteScale, actorScale);
         this.descriptor = descriptor.clone();
         currentLife = descriptor.getLife();
     }

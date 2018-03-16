@@ -3,6 +3,7 @@ package net.smappz.arcadia.actors;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
+import net.smappz.arcadia.ArcadiaGame;
 import net.smappz.arcadia.util.Formation;
 import net.smappz.arcadia.util.Route;
 
@@ -33,7 +34,7 @@ public class AirSquadron extends Group{
         super.act(delta);
 
         // Cycle execution
-        if (cycle && isOut()) {
+        if (cycle && isOut() && !ArcadiaGame.INSTANCE.getListener().isFinished()) {
             restart();
         }
     }

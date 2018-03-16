@@ -24,7 +24,7 @@ class ScreenFader extends Actor {
     @Override
     public void draw (Batch batch, float parentAlpha) {
         if (active) {
-            batch.setColor(0, 0, 0, 0.7f);
+            batch.setColor(0, 0, 0, 0.3f);
             batch.draw(fadePixel, 0, 0, WIDTH, HEIGHT);
         }
     }

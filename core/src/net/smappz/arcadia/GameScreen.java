@@ -240,6 +240,11 @@ class GameScreen extends AbstractScreen implements GameListener {
         hud.finish();
     }
 
+    @Override
+    public boolean isFinished() {
+        return  (status == Status.Success || status == Status.Fail);
+    }
+
     void setLevel(Level level) {
         this.level = level;
     }

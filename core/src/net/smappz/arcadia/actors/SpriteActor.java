@@ -21,11 +21,13 @@ import static com.badlogic.gdx.graphics.g2d.Batch.Y4;
 public abstract class SpriteActor extends Actor {
     private final float actorToSprite;
     private final float spriteScale;
+    private final float actorScale;
     private Sprite sprite = null;
 
-    protected SpriteActor(float actorToSprite, float spriteScale) {
+    protected SpriteActor(float actorToSprite, float spriteScale, float actorScale) {
         this.actorToSprite = actorToSprite;
         this.spriteScale = spriteScale;
+        this.actorScale = actorScale;
     }
 
     private float getImageWidth() {
@@ -46,8 +48,8 @@ public abstract class SpriteActor extends Actor {
             sprite.setRegion(region);
         }
         sprite.setScale(spriteScale);
-        setWidth(getImageWidth());
-        setHeight(getImageHeight());
+        setWidth(getImageWidth() * actorScale);
+        setHeight(getImageHeight() * actorScale);
 //        sprite.setOriginCenter();
 //        setOrigin(Align.center);
         if (initial) {
@@ -58,14 +60,14 @@ public abstract class SpriteActor extends Actor {
     public void setPosition(Vector2 position) {
         sprite.setCenter(position.x, position.y);
         // center to top-left corner
-        Vector2 topLeftCoords = new Vector2(-getImageWidth() / 2, -getImageHeight() / 2);
+        Vector2 topLeftCoords = new Vector2(-getWidth() / 2, -getHeight() / 2);
         topLeftCoords.rotate(getRotation());
         setPosition(position.x + topLeftCoords.x, position.y + topLeftCoords.y);
     }
 
     public Vector2 getPosition() {
         // center position
-        Vector2 centerCoords = new Vector2(getImageWidth() / 2, getImageHeight() / 2);
+        Vector2 centerCoords = new Vector2(getWidth() / 2, getHeight() / 2);
         return localToStageCoordinates(centerCoords);
     }
 

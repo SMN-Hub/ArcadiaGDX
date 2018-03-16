@@ -15,4 +15,5 @@ public interface GameListener {
     void onFighterDestroy();
 
     void finish();
+    boolean isFinished();
 }

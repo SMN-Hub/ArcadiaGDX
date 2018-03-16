@@ -18,7 +18,7 @@ import net.smappz.arcadia.util.Timeline;
 import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
 class SplashScreen extends AbstractScreen {
-    private static final float FADE = 4;
+    private static final float FADE = 2;
     private Timeline timeline = new Timeline();
     private AirFighter fighter;
     private Shoot shoot;
@@ -59,25 +59,32 @@ class SplashScreen extends AbstractScreen {
         });
 
         // Scenario
-        timeline.addEvent(10, new TimeEvent() {
+        timeline.addEvent(5, new TimeEvent() {
             @Override
             public void trigger() {
                 fighter.moveTo(360, 360);
             }
         });
-        timeline.addEvent(13, new TimeEvent() {
+        timeline.addEvent(7, new TimeEvent() {
             @Override
             public void trigger() {
                 stage.addActor(shoot);
                 shoot.setZIndex(20);
             }
         });
-        timeline.addEvent(20, new TimeEvent() {
+        timeline.addEvent(9, new TimeEvent() {
+            @Override
+            public void trigger() {
+                fighter.moveTo(360, 1400);
+            }
+        });
+        timeline.addEvent(11, new TimeEvent() {
             @Override
             public void trigger() {
                 ArcadiaGame.INSTANCE.enter();
             }
         });
+        timeline.restart();
     }
 
     @Override

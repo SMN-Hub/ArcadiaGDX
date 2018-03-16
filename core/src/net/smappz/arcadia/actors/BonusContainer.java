@@ -11,7 +11,7 @@ public class BonusContainer extends SpriteActor {
     private final LinearDriver driver;
 
     BonusContainer(TextureAtlas.AtlasRegion region, Vector2 position, Bonus bonus) {
-        super(0f, 2f);
+        super(0f, 2f, 1f);
         this.bonus = bonus;
         setImage(region);
         driver = new LinearDriver(this, position, -90, false);

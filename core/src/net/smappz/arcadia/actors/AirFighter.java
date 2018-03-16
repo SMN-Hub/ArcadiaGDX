@@ -25,10 +25,13 @@ public abstract class AirFighter extends ShootableActor {
     private int cannonRange = 1;
     private final ManualDriver driver;
 
-    public AirFighter(float actorToSprite, float spriteScale, PlaneDescriptor descriptor, float initialX, float initialY) {
-        super(actorToSprite, spriteScale, descriptor);
+    public AirFighter(float actorToSprite, float spriteScale, float actorScale, PlaneDescriptor descriptor, float initialX, float initialY) {
+        super(actorToSprite, spriteScale, actorScale, descriptor);
 
         driver = new ManualDriver(this, new Vector2(initialX, initialY));
+    }
+
+    protected void start() {
         driver.start();
     }
 
@@ -108,16 +111,16 @@ public abstract class AirFighter extends ShootableActor {
         ArcadiaGame.INSTANCE.getListener().onFighterDestroy();
     }
 
-    private Vector2 centerCanon() {
+    protected Vector2 centerCanon() {
         return new Vector2(getX() + getHeight() / 2, getY());
     }
-    private Vector2 leftCanon() {
+    protected Vector2 leftCanon() {
         return new Vector2(getX(), getY() - getWidth() / 2);
     }
-    private Vector2 rightCanon() {
+    protected Vector2 rightCanon() {
         return new Vector2(getX() + getHeight(), getY() - getWidth() / 2);
     }
-    private Vector2 backCanon() {
+    protected Vector2 backCanon() {
         return new Vector2(getX() + getHeight() / 2, getY() - getWidth());
     }
 

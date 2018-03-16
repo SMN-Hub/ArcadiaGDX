@@ -24,6 +24,7 @@ class MainMenuScreen extends AbstractScreen {
         super.show();
 
         Scroller scroller = new Scroller();
+        scroller.setVerticalPosition(900);
         stage.addActor(scroller);
         scroller.toBack();
 

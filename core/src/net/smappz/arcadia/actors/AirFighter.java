@@ -47,6 +47,10 @@ public abstract class AirFighter extends ShootableActor {
 
     protected abstract void updateFrame(Pitch newPitch);
 
+    public int getCannonRange() {
+        return cannonRange;
+    }
+
     @Override
     public void act (float delta) {
         if (!isVisible())

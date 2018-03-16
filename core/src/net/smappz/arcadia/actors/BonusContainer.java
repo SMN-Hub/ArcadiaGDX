@@ -23,7 +23,7 @@ public class BonusContainer extends SpriteActor {
         super.act(delta);
 
         // update position
-        driver.act(delta, -Scroller.SCROLL_SPEED);
+        driver.act(delta, - 2 * Scroller.SCROLL_SPEED);
 
         // prune if no longer visible
         if (isOut())

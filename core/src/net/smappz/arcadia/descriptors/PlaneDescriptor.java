@@ -50,6 +50,14 @@ public class PlaneDescriptor implements Cloneable {
         return bonus;
     }
 
+    public int getSpeedMultiplier() {
+        return speedMultiplier;
+    }
+
+    public int getShootMultiplier() {
+        return shootMultiplier;
+    }
+
     @Override
     public PlaneDescriptor clone() {
         final PlaneDescriptor clone;

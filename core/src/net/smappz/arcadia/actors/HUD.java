@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import net.smappz.arcadia.descriptors.LevelScore;
+import net.smappz.arcadia.descriptors.PlaneDescriptor;
 
 import java.util.Locale;
 
@@ -49,9 +50,10 @@ public class HUD extends Group {
     @Override
     public void act(float delta) {
         super.act(delta);
-
-        String hudText = String.format(Locale.getDefault(), "Score: %010d             Health: %3d             FPS: %d",
-                score.getScore(), fighter.getCurrentLife(), Gdx.graphics.getFramesPerSecond());
+        PlaneDescriptor descriptor = fighter.getDescriptor();
+        String hudText = String.format(Locale.getDefault(), "Score: %010d             Health: %3d             FPS: %d\nFire Rate: %d/5      Charge: %d/5       Cannons: %d/5      Motors: %d/5",
+                score.getScore(), fighter.getCurrentLife(), Gdx.graphics.getFramesPerSecond(),
+                descriptor.getShootMultiplier(), descriptor.getShootId(), fighter.getCannonRange(), descriptor.getSpeedMultiplier());
         label.setText(hudText);
     }
 

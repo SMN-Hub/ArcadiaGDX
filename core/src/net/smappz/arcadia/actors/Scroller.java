@@ -11,10 +11,15 @@ import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 public class Scroller extends Actor {
     static final float SCROLL_SPEED = -40;
     private Texture background;
+    private int verticalPosition = 0;
 
     public Scroller() {
         background = RESOURCES.getBackGround();
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+    }
+
+    public void setVerticalPosition(int verticalPosition) {
+        this.verticalPosition = verticalPosition;
     }
 
     @Override
@@ -25,7 +30,7 @@ public class Scroller extends Actor {
 
     @Override
     public void draw (Batch batch, float parentAlpha) {
-        batch.draw(background, 0, 0, 0, (int) getY(), WIDTH, HEIGHT);
+        batch.draw(background, 0, verticalPosition, 0, (int) getY(), WIDTH, HEIGHT - verticalPosition);
     }
 
 }

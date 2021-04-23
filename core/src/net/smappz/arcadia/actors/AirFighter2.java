@@ -5,22 +5,20 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import net.smappz.arcadia.ArcadiaGame;
+import net.smappz.arcadia.util.FrameSet;
 
-import static com.badlogic.gdx.graphics.g2d.Batch.X1;
-import static com.badlogic.gdx.graphics.g2d.Batch.X2;
-import static com.badlogic.gdx.graphics.g2d.Batch.X3;
-import static com.badlogic.gdx.graphics.g2d.Batch.X4;
-import static com.badlogic.gdx.graphics.g2d.Batch.Y1;
-import static com.badlogic.gdx.graphics.g2d.Batch.Y2;
-import static com.badlogic.gdx.graphics.g2d.Batch.Y3;
-import static com.badlogic.gdx.graphics.g2d.Batch.Y4;
 import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
 
 public class AirFighter2 extends AirFighter {
-    private static final float UPDATE_FREQ = 0.04f;
-    private float destroyDuration = -1;
-    private float pitchDuration = 0;
+    private static final float PITCH_FREQ = 0.04f;
+    private static final float DESTROY_FREQ = PITCH_FREQ * 1.5f;
+    // pitch animation from 0 to 49
+    private final FrameSet PITCH_FRAME = new FrameSet(PITCH_FREQ).cycle().addRange(0, 49);
+    //private final FrameSet SHIELD_FRAME = new FrameSet(UPDATE_FREQ).cycle().addRange(63, 99);
+    // destroy animation from 50 to 62 then from 100 to 115
+    private final FrameSet DESTROY_FRAME = new FrameSet(DESTROY_FREQ).addRange(50, 62).addRange(100, 115);
+    private boolean isDestroyed = false;
 
     public AirFighter2() {
         this(360, 200);
@@ -43,18 +41,15 @@ public class AirFighter2 extends AirFighter {
         if (!isVisible())
             return;
 
-        if (destroyDuration >= 0) {
+        if (isDestroyed) {
             // update destruction
-            destroyDuration += delta;
-            if (!stepDestroy()) {
-                destroyDuration = -1;
+            if (!stepDestroy(delta)) {
                 setVisible(false);
                 ArcadiaGame.INSTANCE.getListener().onFighterDestroy();
             }
         } else {
             // update pitch
-            pitchDuration += delta;
-            stepPitch();
+            stepPitch(delta);
             super.act(delta);
         }
     }
@@ -63,32 +58,26 @@ public class AirFighter2 extends AirFighter {
     protected void onDestroyed() {
         setTouchable(Touchable.disabled);
         // start destroy animation
-        destroyDuration = 0;
-        stepDestroy();
+        isDestroyed = true;
+        stepDestroy(DESTROY_FREQ);
     }
 
-    private boolean stepDestroy() {
-        // destroy animation from 50 to 62 then from 100 to 115
-        int destroyStep = Math.round(destroyDuration / UPDATE_FREQ);
-        if (destroyStep > 28) {
+    private boolean stepDestroy(float delta) {
+        if (!DESTROY_FRAME.hasNext())
             return false;
-        } else if (destroyStep > 13) {
-            setImage(getRegion(destroyStep + 100 - 13));
-            return true;
-        } else {
-            setImage(getRegion(destroyStep + 50));
-            return true;
+
+        Integer destroyStep = DESTROY_FRAME.next(delta);
+        if (destroyStep != null) {
+            setImage(getRegion(destroyStep));
         }
+        return true;
     }
 
-    private void stepPitch() {
-        // pitch animation from 0 to 49
-        int pitchStep = Math.round(pitchDuration / UPDATE_FREQ);
-        if (pitchStep > 49) {
-            pitchStep = 0;
-            pitchDuration = 0;
+    private void stepPitch(float delta) {
+        Integer pitchStep = PITCH_FRAME.next(delta);
+        if (pitchStep != null) {
+            setImage(getRegion(pitchStep));
         }
-        setImage(getRegion(pitchStep));
     }
 
     private TextureAtlas.AtlasRegion getRegion(int step) {

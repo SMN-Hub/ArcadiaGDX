@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.SnapshotArray;
 
-import net.smappz.arcadia.actors.AirEnemy;
 import net.smappz.arcadia.actors.AirFighter;
 import net.smappz.arcadia.actors.AirFighter2;
 import net.smappz.arcadia.actors.AirSquadron;
@@ -18,6 +17,7 @@ import net.smappz.arcadia.actors.BonusContainer;
 import net.smappz.arcadia.actors.Fireworks;
 import net.smappz.arcadia.actors.HUD;
 import net.smappz.arcadia.actors.Shoot;
+import net.smappz.arcadia.actors.ShootableActor;
 import net.smappz.arcadia.descriptors.LevelScore;
 import net.smappz.arcadia.levels.Level;
 
@@ -87,6 +87,11 @@ class GameScreen extends AbstractScreen implements GameListener {
                     case Launching:
                         level.setPause(false);
                         status = Status.Running;
+                        break;
+                    case Fail:
+                    case Success:
+                        ArcadiaGame.INSTANCE.enter();
+                        return true;
                 }
                 fighter.setShooting(true);
                 fighter.moveTo(x, y);
@@ -131,7 +136,7 @@ class GameScreen extends AbstractScreen implements GameListener {
 
             for (int j=0; j < enemies.size; j++) {
                 if (enemyItems[j] instanceof AirSquadron) continue;
-                AirEnemy enemy = (AirEnemy)enemyItems[j];
+                ShootableActor enemy = (ShootableActor)enemyItems[j];
                 if (!enemy.isVisible() || !enemy.isTouchable()) continue;
 
                 if (Intersector.overlapConvexPolygons(enemy.getVertices(), shoot.getVertices(), null)) {
@@ -184,7 +189,7 @@ class GameScreen extends AbstractScreen implements GameListener {
 
         for (int j=0; j < enemies.size; j++) {
             if (enemyItems[j] instanceof AirSquadron) continue;
-            AirEnemy enemy = (AirEnemy)enemyItems[j];
+            ShootableActor enemy = (ShootableActor)enemyItems[j];
             if (!enemy.isVisible() || !enemy.isTouchable()) continue;
 
             if (Intersector.overlapConvexPolygons(enemy.getVertices(), fighter.getVertices(), null)) {
@@ -211,7 +216,7 @@ class GameScreen extends AbstractScreen implements GameListener {
     }
 
     @Override
-    public void onEnemyDestroy(AirEnemy plane) {
+    public void onEnemyDestroy(ShootableActor plane) {
         if (plane.getDescriptor().hasBonus()) {
             // drop random bonus
             lastBonus++;

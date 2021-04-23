@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AirSquadron extends Group{
 
-    private List<AirEnemy> actors = new ArrayList<>();
+    private final List<ShootableActor> actors = new ArrayList<>();
     private boolean cycle = false;
 
     public AirSquadron(Army army, Route route, Formation formation, int... planes) {
@@ -20,7 +20,7 @@ public class AirSquadron extends Group{
         for (int l=0; l<planes.length; l++) {
             int plane = planes[l];
             Route r = formation.place(route, l);
-            AirEnemy ae = new AirEnemy(plane, r);
+            ShootableActor ae = plane > 10 ? new AirInvader(plane, r) : new AirEnemy(plane, r);
             addEnemy(ae);
         }
     }
@@ -44,13 +44,13 @@ public class AirSquadron extends Group{
         // Skip, just a container
     }
 
-    private void addEnemy(AirEnemy ae) {
+    private void addEnemy(ShootableActor ae) {
         getParent().addActor(ae); // assign to parent directly
         actors.add(ae);
     }
 
     private boolean isOut() {
-        for (AirEnemy actor : actors) {
+        for (ShootableActor actor : actors) {
             if (!actor.isOut())
                 return false;
         }
@@ -58,8 +58,8 @@ public class AirSquadron extends Group{
     }
 
     void restart() {
-        for (AirEnemy actor : actors) {
-            actor.restart();
+        for (ShootableActor actor : actors) {
+            actor.reset();
         }
     }
 }

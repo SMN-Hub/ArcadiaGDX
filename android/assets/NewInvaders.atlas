@@ -1,0 +1,69 @@
+
+NewInvaders.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+invader01
+  rotate: false
+  xy: 77, 70
+  size: 300, 230
+  orig: 300, 230
+  offset: 0, 0
+  index: -1
+invader02
+  rotate: false
+  xy: 380, 106
+  size: 355, 183
+  orig: 355, 183
+  offset: 0, 0
+  index: -1
+invader03
+  rotate: false
+  xy: 740, 70
+  size: 300, 230
+  orig: 300, 230
+  offset: 0, 0
+  index: -1
+invader04
+  rotate: false
+  xy: 76, 404
+  size: 300, 230
+  orig: 300, 230
+  offset: 0, 0
+  index: -1
+invader05
+  rotate: false
+  xy: 409, 404
+  size: 300, 230
+  orig: 300, 230
+  offset: 0, 0
+  index: -1
+invader06
+  rotate: false
+  xy: 740, 404
+  size: 300, 230
+  orig: 300, 230
+  offset: 0, 0
+  index: -1
+invader07
+  rotate: false
+  xy: 76, 749
+  size: 300, 230
+  orig: 300, 230
+  offset: 0, 0
+  index: -1
+invader08
+  rotate: false
+  xy: 409, 749
+  size: 300, 230
+  orig: 300, 230
+  offset: 0, 0
+  index: -1
+invader09
+  rotate: false
+  xy: 740, 749
+  size: 300, 230
+  orig: 300, 230
+  offset: 0, 0
+  index: -1
+

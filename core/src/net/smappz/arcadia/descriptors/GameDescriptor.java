@@ -1,24 +1,17 @@
 package net.smappz.arcadia.descriptors;
 
-import java.util.ArrayList;
+import com.badlogic.gdx.utils.IntMap;
 
+@SuppressWarnings("unused")
 public class GameDescriptor {
-    private ArrayList<PlaneDescriptor> planes = new ArrayList<>();
-    private ArrayList<ShotDescriptor> shots = new ArrayList<>();
+    private IntMap<PlaneDescriptor> planes;
+    private IntMap<ShotDescriptor> shots;
 
-    public ArrayList<PlaneDescriptor> getPlanes() {
-        return planes;
+    public PlaneDescriptor getPlane(int id) {
+        return planes.get(id);
     }
 
-    public void setPlanes(ArrayList<PlaneDescriptor> planes) {
-        this.planes = planes;
-    }
-
-    public ArrayList<ShotDescriptor> getShots() {
-        return shots;
-    }
-
-    public void setShots(ArrayList<ShotDescriptor> shots) {
-        this.shots = shots;
+    public ShotDescriptor getShot(int id) {
+        return shots.get(id);
     }
 }

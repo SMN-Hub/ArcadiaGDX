@@ -7,12 +7,18 @@ import net.smappz.arcadia.actors.SpriteActor;
 public class RouteDriver extends Driver{
     private final Route route;
     private float direction;
+    private boolean rotate = true;
+    private float angle = 0.f;
     private int targetIndex;
 
     public RouteDriver(SpriteActor actor, Route route) {
         super(actor);
         assert route.size() > 1;
         this.route = route;
+    }
+
+    public void setRotate(boolean rotate) {
+        this.rotate = rotate;
     }
 
     public float getDirection() {
@@ -67,10 +73,11 @@ public class RouteDriver extends Driver{
     private void computeRotation() {
         if (targetIndex >= 0) {
             Vector2 target = route.getPoint(targetIndex);
-            float lastRotation = actor.getRotation();
-            float angle = computeAngle(actor.getPosition(), target);
-            actor.setRotation(angle);
-            direction = actor.getRotation() - lastRotation;
+            float lastAngle = angle;
+            angle = computeAngle(actor.getPosition(), target);
+            direction = angle - lastAngle;
+            if (rotate)
+                actor.setRotation(angle);
         }
     }
 

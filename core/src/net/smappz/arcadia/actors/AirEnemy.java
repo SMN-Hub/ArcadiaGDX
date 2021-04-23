@@ -21,8 +21,8 @@ public class AirEnemy extends ShootableActor {
     private static final float TIME_TO_DESTROY = 0.2f;
     private static final float ROUTE_TO_SPRITE = 90f;
 
-    private Map<Pitch,TextureAtlas.AtlasRegion> pitchRegions = new HashMap<>();
-    private ArrayList<TextureAtlas.AtlasRegion> destroyRegions = new ArrayList<>();
+    private final Map<Pitch,TextureAtlas.AtlasRegion> pitchRegions = new HashMap<>();
+    private final ArrayList<TextureAtlas.AtlasRegion> destroyRegions = new ArrayList<>();
     private Pitch pitch = Pitch.Flat;
     private float pitchDuration = -1;
     private int destroyStep = -1;
@@ -31,6 +31,7 @@ public class AirEnemy extends ShootableActor {
     private float lastShoot = 0f;
     private boolean cycle = false;
 
+    @SuppressWarnings("DefaultLocale")
     AirEnemy(int plane, Route route) {
         super(ROUTE_TO_SPRITE, 3f, INSTANCE.getPlane(plane));
         pitchRegions.put(Pitch.Left, RESOURCES.getTextureRegion(String.format("enemy00%d1", plane)));
@@ -44,7 +45,7 @@ public class AirEnemy extends ShootableActor {
         updateFrame(pitch);
 
         driver = new RouteDriver(this, route);
-        restart();
+        reset();
     }
 
     public void setCycle(boolean cycle) {
@@ -67,11 +68,12 @@ public class AirEnemy extends ShootableActor {
         }
     }
 
-    void restart() {
+    @Override
+    public void reset() {
         pitchDuration = -1;
         destroyDuration = -1;
         destroyStep = -1;
-        reset();
+        super.reset();
         updateFrame(Pitch.Flat);
         driver.start();
     }
@@ -81,7 +83,7 @@ public class AirEnemy extends ShootableActor {
         // Cycle execution
         if (driver.isOver()) {
             if (cycle) {
-                restart();
+                reset();
             } else {
                 setVisible(false);
             }

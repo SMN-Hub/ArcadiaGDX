@@ -1,77 +1,135 @@
 {
-  "planes": [
-    {
+  "planes": {
+    "0": {
       "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
-      "id": 0,
       "speed": 800,
       "life": 100,
       "shoot": 1,
       "shootFrequency": 0.2
     },
-    {
+    "1": {
       "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
-      "id": 1,
       "speed": 400,
       "life": 10
     },
-    {
+    "2": {
       "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
-      "id": 2,
       "speed": 400,
       "life": 20,
       "bonus": true
     },
-    {
+    "3": {
       "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
-      "id": 3,
       "speed": 400,
       "life": 20
     },
-    {
+    "4": {
       "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
-      "id": 4,
       "speed": 400,
       "life": 20,
       "shoot": 6,
       "shootFrequency": 1
+    },
+    "11": {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "speed": 200,
+      "life": 20
+    },
+    "12": {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "speed": 300,
+      "life": 20,
+      "bonus": true
+    },
+    "13": {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "speed": 200,
+      "life": 10,
+      "shoot": 6,
+      "shootFrequency": 1
+    },
+    "14": {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "speed": 200,
+      "life": 40,
+      "bonus": true
+    },
+    "15": {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "speed": 200,
+      "life": 20,
+      "shoot": 8,
+      "shootFrequency": 2
+    },
+    "16": {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "speed": 200,
+      "life": 50
+    },
+    "17": {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "speed": 200,
+      "life": 20,
+      "bonus": true
+    },
+    "18": {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "speed": 200,
+      "life": 20
+    },
+    "19": {
+      "class": "net.smappz.arcadia.descriptors.PlaneDescriptor",
+      "speed": 200,
+      "life": 20,
+      "shoot": 7,
+      "shootFrequency": 1.5
     }
-  ],
-  "shots": [
-    {
+  },
+  "shots": {
+    "1": {
       "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
-      "id": 1,
       "power": 10,
       "speed": 600
     },
-    {
+    "2": {
       "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
-      "id": 2,
       "power": 20,
       "speed": 600
     },
-    {
+    "3": {
       "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
-      "id": 3,
       "power": 30,
       "speed": 600
     },
-    {
+    "4": {
       "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
-      "id": 4,
       "power": 50,
       "speed": 600
     },
-    {
+    "5": {
       "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
-      "id": 5,
       "power": 70,
       "speed": 600
     },
-    {
+    "6": {
       "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
-      "id": 6,
       "power": 10,
       "speed": 300
+    },
+    "7": {
+      "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
+      "power": 20,
+      "speed": 300
+    },
+    "8": {
+      "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
+      "power": 30,
+      "speed": 500
+    },
+    "9": {
+      "class": "net.smappz.arcadia.descriptors.ShotDescriptor",
+      "power": 50,
+      "speed": 200
     }
-  ]
+  }
 }

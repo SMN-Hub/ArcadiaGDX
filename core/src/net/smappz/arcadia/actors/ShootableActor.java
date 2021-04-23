@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import net.smappz.arcadia.descriptors.PlaneDescriptor;
 
-abstract class ShootableActor extends SpriteActor {
+public abstract class ShootableActor extends SpriteActor {
     private int currentLife = 0;
     protected final PlaneDescriptor descriptor;
 
@@ -45,7 +45,7 @@ abstract class ShootableActor extends SpriteActor {
         setTouchable(Touchable.disabled);
     }
 
-    protected void reset() {
+    public void reset() {
         setVisible(true);
         setTouchable(Touchable.enabled);
         currentLife = descriptor.getLife();

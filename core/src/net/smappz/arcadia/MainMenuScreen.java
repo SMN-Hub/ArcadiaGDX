@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import net.smappz.arcadia.actors.Scroller;
 import net.smappz.arcadia.levels.Level_1;
+import net.smappz.arcadia.levels.Level_2;
 
 import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
@@ -41,6 +42,14 @@ class MainMenuScreen extends AbstractScreen {
         });
         Label label2 = new Label("Level 2", style);
         label2.setFontScale(2);
+        label2.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y,
+                                     int pointer, int button) {
+                ArcadiaGame.INSTANCE.startLevel(new Level_2());
+                return true;
+            }
+        });
 
         Table table = new Table();
         table.setFillParent(true);

@@ -18,6 +18,7 @@ public class ResourceManager {
     private final TextureAtlas fighterTextures;
     private final TextureAtlas fighter2Textures;
     private final TextureAtlas enemyTextures;
+    private final TextureAtlas invaderTextures;
     private final TextureAtlas bonusTextures;
     private final Texture backGround;
     private final Map<String,AtlasRegion> regions = new HashMap<>();
@@ -26,11 +27,12 @@ public class ResourceManager {
     private final Texture fadeTexture;
 
     public ResourceManager() {
-        shotTextures = new TextureAtlas(Gdx.files.internal("shots.atlas"));
-        fighterTextures = new TextureAtlas(Gdx.files.internal("PlanesSmall.atlas"));
-        fighter2Textures = new TextureAtlas(Gdx.files.internal("terron.atlas"));
-        enemyTextures = new TextureAtlas(Gdx.files.internal("enemy.atlas"));
-        bonusTextures = new TextureAtlas(Gdx.files.internal("bonus.atlas"));
+        shotTextures = new TextureAtlas("shots.atlas");
+        fighterTextures = new TextureAtlas("PlanesSmall.atlas");
+        fighter2Textures = new TextureAtlas("terron.atlas");
+        enemyTextures = new TextureAtlas("enemy.atlas");
+        invaderTextures = new TextureAtlas("NewInvaders.atlas");
+        bonusTextures = new TextureAtlas("bonus.atlas");
         backGround = new Texture(Gdx.files.internal("space_0.png"));
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("MATURASC.TTF"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -58,6 +60,8 @@ public class ResourceManager {
                 atlas = fighter2Textures;
             } else if (id.startsWith("UP_") || id.startsWith("WP_")) {
                 atlas = bonusTextures;
+            } else if (id.startsWith("invader")) {
+                atlas = invaderTextures;
             } else {
                 atlas = enemyTextures;
             }

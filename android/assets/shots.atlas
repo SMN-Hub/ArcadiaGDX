@@ -45,3 +45,24 @@ shot06
   orig: 6, 6
   offset: 0, 0
   index: -1
+shot07
+  rotate: false
+  xy: 92, 0
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+shot08
+  rotate: false
+  xy: 114, 0
+  size: 10, 25
+  orig: 10, 25
+  offset: 0, 0
+  index: -1
+shot09
+  rotate: false
+  xy: 126, 0
+  size: 22, 28
+  orig: 22, 28
+  offset: 0, 0
+  index: -1

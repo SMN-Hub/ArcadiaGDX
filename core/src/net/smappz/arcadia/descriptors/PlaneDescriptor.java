@@ -4,7 +4,6 @@ package net.smappz.arcadia.descriptors;
 public class PlaneDescriptor implements Cloneable {
     private static final int MAX_MULTIPLY = 5;
 
-    private int id;
     private float speed;
     private int speedMultiplier = 1;
     private int life;
@@ -13,10 +12,6 @@ public class PlaneDescriptor implements Cloneable {
     private int shootMultiplier = 1;
     private int shoot = -1;
     private boolean bonus = false;
-
-    public int getId() {
-        return id;
-    }
 
     public float getSpeed() {
         return speed + (speedMultiplier - 1) * 100;

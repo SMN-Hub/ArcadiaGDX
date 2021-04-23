@@ -14,7 +14,7 @@ public abstract class AbstractScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        stage = new Stage(new StretchViewport(AbstractScreen.WIDTH, AbstractScreen.HEIGHT)); //ScreenViewport());
+        stage = new Stage(new StretchViewport(WIDTH, HEIGHT)); //ScreenViewport());
     }
 
     @Override

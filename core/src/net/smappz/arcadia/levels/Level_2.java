@@ -29,7 +29,7 @@ public class Level_2 extends Level {
         TimeEvent waveH = new SquadronWave() {
             @Override
             public AirSquadron init() {
-                return new AirSquadron(army, route, Formation.Horizontal, 11, 11);
+                return new AirSquadron(army, route, Formation.Horizontal, 13, 15, 16);
             }
         };
 

@@ -2,7 +2,6 @@ package net.smappz.arcadia.levels;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import net.smappz.arcadia.ArcadiaGame;
 import net.smappz.arcadia.actors.Army;
 import net.smappz.arcadia.actors.Scroller;
 import net.smappz.arcadia.util.TimeEvent;
@@ -41,11 +40,6 @@ public abstract class Level {
             @Override
             public void trigger() {
                 timeline.restart();
-            }
-        }, new TimeEvent() {
-            @Override
-            public void trigger() {
-                ArcadiaGame.INSTANCE.getListener().finish();
             }
         });
     }

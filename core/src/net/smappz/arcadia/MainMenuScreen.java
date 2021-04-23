@@ -28,6 +28,13 @@ class MainMenuScreen extends AbstractScreen {
         scroller.setVerticalPosition(900);
         stage.addActor(scroller);
         scroller.toBack();
+        Label.LabelStyle titleStyle = new Label.LabelStyle(RESOURCES.getFont(), new Color(0xff6c11ff));
+        Label title = new Label("Arcadia GDX", titleStyle);
+        title.setFontScale(3);
+        title.setY(1000);
+        title.setX(WIDTH / 2 - title.getPrefWidth() / 2);
+        title.setZIndex(200);
+        stage.addActor(title);
 
         Label.LabelStyle style = new Label.LabelStyle(RESOURCES.getFont(), new Color(1, 1, 1, 1));
         Label label1 = new Label("Level 1", style);

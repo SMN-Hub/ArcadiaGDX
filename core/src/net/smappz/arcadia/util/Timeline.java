@@ -7,14 +7,14 @@ public class Timeline {
     private float time = 0;
     private boolean pause = false;
     private ArrayList<TimelineEvent> remainingEvents = null;
-    private ArrayList<TimelineEvent> allEvents = new ArrayList<>();
+    private final ArrayList<TimelineEvent> allEvents = new ArrayList<>();
 
     public void addEvent(float time, TimeEvent event) {
         allEvents.add(new TimelineEvent(time, event));
     }
 
-    public void addEvent(float time, int countDown, TimeEvent event, TimeEvent eventAfter) {
-        allEvents.add(new TimelineEvent(time, countDown, event, eventAfter));
+    public void addEvent(float time, int countDown, TimeEvent event) {
+        allEvents.add(new TimelineEvent(time, event, countDown));
     }
 
     public void setPause(boolean pause) {
@@ -35,7 +35,8 @@ public class Timeline {
         time += delta;
         while (!remainingEvents.isEmpty() && remainingEvents.get(0).getTime() < time) {
             TimelineEvent timelineEvent = remainingEvents.remove(0);
-            timelineEvent.getEvent().trigger();
+            if (timelineEvent.isReady())
+                timelineEvent.getEvent().trigger();
         }
     }
 }

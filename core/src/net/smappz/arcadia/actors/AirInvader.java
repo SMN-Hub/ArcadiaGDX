@@ -4,8 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import net.smappz.arcadia.ArcadiaGame;
 import net.smappz.arcadia.GameListener;
+import net.smappz.arcadia.util.Driver;
 import net.smappz.arcadia.util.Route;
-import net.smappz.arcadia.util.RouteDriver;
 
 import static net.smappz.arcadia.ArcadiaGame.INSTANCE;
 
@@ -13,15 +13,14 @@ import static net.smappz.arcadia.ArcadiaGame.INSTANCE;
 public class AirInvader extends ShootableActor {
 
     private float lastShoot = 0f;
-    private final RouteDriver driver;
+    private final Driver driver;
 
     @SuppressWarnings("DefaultLocale")
     AirInvader(int invader, Route route) {
         super(0.f, 0.3f, INSTANCE.getPlane(invader));
         setImage(ArcadiaGame.RESOURCES.getTextureRegion(String.format("invader%02d", invader-10)));
 
-        driver = new RouteDriver(this, route);
-        driver.setRotate(false);
+        driver = route.createDriver(this);
         restart();
     }
 

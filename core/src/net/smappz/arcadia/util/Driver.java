@@ -13,7 +13,12 @@ public abstract class Driver {
 
     public abstract void start();
     public abstract void act(float delta, float speed);
-
+    public boolean isOver() {
+        return false;
+    }
+    public float getDirection() {
+        return 0;
+    }
     public static float computeAngle(Vector2 origin, Vector2 target) {
         float deltaX = target.x - origin.x;
         float deltaY = target.y - origin.y;

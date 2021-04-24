@@ -10,7 +10,7 @@ public enum Formation {
     public static final float DECAL_Y = 110f;
 
     public Route place(Route src, int index) {
-        Route r = new Route(src);
+        Route r = src.clone();
         switch (this) {
             case Vertical:
                 RouteDriver.backWard(r, index* DECAL_Y);

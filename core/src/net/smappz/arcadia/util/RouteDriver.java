@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import net.smappz.arcadia.actors.SpriteActor;
 
-public class RouteDriver extends Driver{
+public class RouteDriver extends Driver {
     private final Route route;
     private float direction;
     private boolean rotate = true;

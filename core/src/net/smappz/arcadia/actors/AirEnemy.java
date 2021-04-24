@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import net.smappz.arcadia.ArcadiaGame;
 import net.smappz.arcadia.GameListener;
+import net.smappz.arcadia.util.Driver;
 import net.smappz.arcadia.util.Route;
 import net.smappz.arcadia.util.RouteDriver;
 
@@ -27,7 +28,7 @@ public class AirEnemy extends ShootableActor {
     private float pitchDuration = -1;
     private int destroyStep = -1;
     private float destroyDuration = -1;
-    private final RouteDriver driver;
+    private final Driver driver;
     private float lastShoot = 0f;
     private boolean cycle = false;
 
@@ -44,7 +45,7 @@ public class AirEnemy extends ShootableActor {
 
         updateFrame(pitch);
 
-        driver = new RouteDriver(this, route);
+        driver = route.createDriver(this);
         reset();
     }
 

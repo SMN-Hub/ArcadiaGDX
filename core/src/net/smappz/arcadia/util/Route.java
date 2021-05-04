@@ -34,7 +34,7 @@ public class Route {
         return this;
     }
 
-    Vector2 getPoint(int index) {
+    public Vector2 getPoint(int index) {
         return points.get(index);
     }
 

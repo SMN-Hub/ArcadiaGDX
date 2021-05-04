@@ -10,7 +10,7 @@ import net.smappz.arcadia.util.Route;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirSquadron extends Group{
+public class AirSquadron extends Group implements Squadron {
 
     private final List<ShootableActor> actors = new ArrayList<>();
     private boolean cycle = false;
@@ -20,7 +20,7 @@ public class AirSquadron extends Group{
         for (int l=0; l<planes.length; l++) {
             int plane = planes[l];
             Route r = formation.place(route, l);
-            ShootableActor ae = plane > 10 ? new AirInvader(plane, r) : new AirEnemy(plane, r);
+            ShootableActor ae = plane > 10 ? new Invader(plane, r.getPoint(0)) : new AirEnemy(plane, r);
             addEnemy(ae);
         }
     }
@@ -57,7 +57,7 @@ public class AirSquadron extends Group{
         return true;
     }
 
-    void restart() {
+    public void restart() {
         for (ShootableActor actor : actors) {
             actor.reset();
         }

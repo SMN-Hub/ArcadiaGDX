@@ -97,8 +97,12 @@ public abstract class SpriteActor extends Actor {
     }
 
     public boolean isOut() {
-        Rectangle bounds = sprite.getBoundingRectangle();
+        Rectangle bounds = getBoundingRectangle();
         return bounds.getX() > AbstractScreen.WIDTH || bounds.getX() + bounds.getWidth() < 0
                 || bounds.getY() > AbstractScreen.HEIGHT || bounds.getY() + bounds.getHeight() < 0;
+    }
+
+    public Rectangle getBoundingRectangle() {
+        return sprite.getBoundingRectangle();
     }
 }

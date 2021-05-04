@@ -1,47 +1,40 @@
 package net.smappz.arcadia.actors;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import net.smappz.arcadia.ArcadiaGame;
 import net.smappz.arcadia.GameListener;
-import net.smappz.arcadia.util.Driver;
-import net.smappz.arcadia.util.Route;
 
 import static net.smappz.arcadia.ArcadiaGame.INSTANCE;
 
 
-public class AirInvader extends ShootableActor {
+public class Invader extends ShootableActor {
 
     private float lastShoot = 0f;
-    private final Driver driver;
+    private final Vector2 startPoint;
 
     @SuppressWarnings("DefaultLocale")
-    AirInvader(int invader, Route route) {
+    Invader(int invader, Vector2 startPoint) {
         super(0.f, 0.3f, INSTANCE.getPlane(invader));
         setImage(ArcadiaGame.RESOURCES.getTextureRegion(String.format("invader%02d", invader-10)));
 
-        driver = route.createDriver(this);
+        this.startPoint = startPoint;
         restart();
     }
 
     void restart() {
         reset();
-        driver.start();
+        setPosition(startPoint);
     }
 
     @Override
     public void act (float delta) {
-        // Cycle execution
-        if (driver.isOver()) {
-            setVisible(false);
-        }
-        super.act(delta);
-
-        // update position
-        driver.act(delta, descriptor.getSpeed());
-
         if (!isVisible())
             return;
+
+        // Position already updated bu InvaderSquadron
+        super.act(delta);
 
         // shoot
         if (descriptor.getShootId() != -1) {

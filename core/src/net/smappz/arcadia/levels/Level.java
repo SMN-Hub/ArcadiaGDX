@@ -27,6 +27,8 @@ public abstract class Level {
 
     protected abstract void buildTimeLine();
 
+    public abstract String getTitle();
+
     public void act(float delta) {
         timeline.act(delta);
     }

@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.SnapshotArray;
 
 import net.smappz.arcadia.actors.AirFighter;
 import net.smappz.arcadia.actors.AirFighter2;
-import net.smappz.arcadia.actors.AirSquadron;
 import net.smappz.arcadia.actors.Army;
 import net.smappz.arcadia.actors.Bonus;
 import net.smappz.arcadia.actors.BonusContainer;
@@ -18,6 +17,7 @@ import net.smappz.arcadia.actors.Fireworks;
 import net.smappz.arcadia.actors.HUD;
 import net.smappz.arcadia.actors.Shoot;
 import net.smappz.arcadia.actors.ShootableActor;
+import net.smappz.arcadia.actors.Squadron;
 import net.smappz.arcadia.descriptors.LevelScore;
 import net.smappz.arcadia.levels.Level;
 
@@ -135,7 +135,7 @@ class GameScreen extends AbstractScreen implements GameListener {
             if (!shoot.isVisible()) continue;
 
             for (int j=0; j < enemies.size; j++) {
-                if (enemyItems[j] instanceof AirSquadron) continue;
+                if (enemyItems[j] instanceof Squadron) continue;
                 ShootableActor enemy = (ShootableActor)enemyItems[j];
                 if (!enemy.isVisible() || !enemy.isTouchable()) continue;
 
@@ -188,7 +188,7 @@ class GameScreen extends AbstractScreen implements GameListener {
         Actor[] enemyItems = enemies.begin();
 
         for (int j=0; j < enemies.size; j++) {
-            if (enemyItems[j] instanceof AirSquadron) continue;
+            if (enemyItems[j] instanceof Squadron) continue;
             ShootableActor enemy = (ShootableActor)enemyItems[j];
             if (!enemy.isVisible() || !enemy.isTouchable()) continue;
 

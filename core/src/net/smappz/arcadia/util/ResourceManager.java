@@ -1,14 +1,20 @@
 package net.smappz.arcadia.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +31,7 @@ public class ResourceManager {
     private final BitmapFont font;
     private final Pixmap fadePixel;
     private final Texture fadeTexture;
+    private final Skin skin;
 
     public ResourceManager() {
         shotTextures = new TextureAtlas("shots.atlas");
@@ -46,6 +53,12 @@ public class ResourceManager {
         PixmapTextureData textureData = new PixmapTextureData(fadePixel, Pixmap.Format.RGBA8888, false, false, true);
         fadeTexture = new Texture(textureData);
         fadeTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        Label.LabelStyle menuLabelStyle = new Label.LabelStyle(font, new Color(1, 1, 1, 1));
+        skin.add("menuLabel", menuLabelStyle);
+        ImageButton.ImageButtonStyle imStyle = new ImageButton.ImageButtonStyle();
+        imStyle.imageUp = new TextureRegionDrawable( new TextureRegion(new Texture("next.png")));
+        skin.add("menuRunButton", imStyle);
     }
 
     public AtlasRegion getTextureRegion(String id) {
@@ -83,6 +96,10 @@ public class ResourceManager {
         return fadeTexture;
     }
 
+    public Skin getSkin() {
+        return skin;
+    }
+
     public void dispose() {
         shotTextures.dispose();
         fighterTextures.dispose();
@@ -91,5 +108,6 @@ public class ResourceManager {
         font.dispose();
         fadePixel.dispose();
         fadeTexture.dispose();
+        skin.dispose();
     }
 }

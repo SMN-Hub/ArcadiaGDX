@@ -15,19 +15,24 @@ public class Level_1 extends Level {
         createEnemies();
     }
 
+    @Override
+    public String getTitle() {
+        return "Plane attack";
+    }
+
     private void createEnemies() {
         final Route loopFromLeft = new Route();
         loopFromLeft.addPoint(200, 1310).addPoint(200, 680).addPoint(300, 380).addPoint(400, 280);
         loopFromLeft.addPoint(500, 380).addPoint(600, 480).addPoint(650, 580).addPoint(600, 680);
         loopFromLeft.addPoint(500, 780).addPoint(300, 880).addPoint(-30, 880);
 
-        final Route loopFromRight = new Route(loopFromLeft);
+        final Route loopFromRight = loopFromLeft.clone();
         RouteDriver.reverse(loopFromRight, AbstractScreen.WIDTH);
 
         final Route fromLeft = new Route();
         fromLeft.addPoint(-30, 1200).addPoint(70, 1100).addPoint(120, 1000).addPoint(200, -30);
 
-        final Route fromRight = new Route(fromLeft);
+        final Route fromRight = fromLeft.clone();
         RouteDriver.reverse(fromRight, AbstractScreen.WIDTH);
 
         final Route horizontal = new Route();
@@ -36,10 +41,10 @@ public class Level_1 extends Level {
         final Route middle = new Route();
         middle.addPoint(360, 1300).addPoint(360, -30);
 
-        final Route middleLeft = new Route(middle);
+        final Route middleLeft = middle.clone();
         RouteDriver.translate(middleLeft, -3*Formation.DECAL_X, 0);
 
-        final Route middleRight = new Route(middle);
+        final Route middleRight = middle.clone();
         RouteDriver.translate(middleRight, 2*Formation.DECAL_X, 0);
 
         RouteDriver.translate(middle, -1.5f*Formation.DECAL_X, 0);

@@ -3,9 +3,9 @@ package net.smappz.arcadia.actors;
 import net.smappz.arcadia.util.TimeEvent;
 
 public abstract class SquadronWave implements TimeEvent {
-    private AirSquadron squadron;
+    private Squadron squadron;
 
-    protected abstract AirSquadron init();
+    protected abstract Squadron init();
 
     @Override
     public void trigger() {

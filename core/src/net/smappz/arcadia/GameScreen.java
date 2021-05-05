@@ -26,7 +26,7 @@ class GameScreen extends AbstractScreen implements GameListener {
         Launching,
         Running,
         Success,
-        Fail;
+        Fail
     }
 
     private int lastBonus = -1;
@@ -112,9 +112,16 @@ class GameScreen extends AbstractScreen implements GameListener {
 
     @Override
     protected void act(float delta) {
-        level.act(delta);
+        if (!isFinished()) {
+            level.act(delta);
+            if (level.isOver()) {
+                finish();
+            }
+        }
         stage.act(delta);
-        handleCollisions();
+        if (!isFinished()) {
+            handleCollisions();
+        }
     }
 
     private void handleCollisions() {

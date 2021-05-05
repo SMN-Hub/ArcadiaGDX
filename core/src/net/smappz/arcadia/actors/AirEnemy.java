@@ -7,7 +7,6 @@ import net.smappz.arcadia.ArcadiaGame;
 import net.smappz.arcadia.GameListener;
 import net.smappz.arcadia.util.Driver;
 import net.smappz.arcadia.util.Route;
-import net.smappz.arcadia.util.RouteDriver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +29,6 @@ public class AirEnemy extends ShootableActor {
     private float destroyDuration = -1;
     private final Driver driver;
     private float lastShoot = 0f;
-    private boolean cycle = false;
 
     @SuppressWarnings("DefaultLocale")
     AirEnemy(int plane, Route route) {
@@ -47,10 +45,6 @@ public class AirEnemy extends ShootableActor {
 
         driver = route.createDriver(this);
         reset();
-    }
-
-    public void setCycle(boolean cycle) {
-        this.cycle = cycle;
     }
 
     private void updateFrame(Pitch newPitch) {
@@ -81,21 +75,17 @@ public class AirEnemy extends ShootableActor {
 
     @Override
     public void act (float delta) {
-        // Cycle execution
-        if (driver.isOver()) {
-            if (cycle) {
-                reset();
-            } else {
-                setVisible(false);
-            }
+        if (!isVisible())
+            return;
+
+        if (isOut()) {
+            setVisible(false);
+            return;
         }
         super.act(delta);
 
         // update position
         driver.act(delta, descriptor.getSpeed());
-
-        if (!isVisible())
-            return;
 
         // update destruction
         if (destroyDuration >= 0) {

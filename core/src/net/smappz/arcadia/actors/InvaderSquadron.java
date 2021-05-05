@@ -66,6 +66,11 @@ public class InvaderSquadron extends Group implements Squadron {
         }
 
         super.act(delta);
+
+        // Grounding invaders ?
+        if (minY + deltaY <= 0) {
+            ArcadiaGame.INSTANCE.getListener().onFighterDestroy();
+        }
     }
 
     @Override

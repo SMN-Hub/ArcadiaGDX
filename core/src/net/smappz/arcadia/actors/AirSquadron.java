@@ -13,7 +13,6 @@ import java.util.List;
 public class AirSquadron extends Group implements Squadron {
 
     private final List<ShootableActor> actors = new ArrayList<>();
-    private boolean cycle = false;
 
     public AirSquadron(Army army, Route route, Formation formation, int... planes) {
         army.addActor(this);
@@ -25,17 +24,10 @@ public class AirSquadron extends Group implements Squadron {
         }
     }
 
-    public void setCycle(boolean cycle) {
-        this.cycle = cycle;
-    }
-
     @Override
     public void act (float delta) {
-        super.act(delta);
-
-        // Cycle execution
-        if (cycle && isOut() && !ArcadiaGame.INSTANCE.getListener().isFinished()) {
-            restart();
+        if (!ArcadiaGame.INSTANCE.getListener().isFinished()) {
+            super.act(delta);
         }
     }
 

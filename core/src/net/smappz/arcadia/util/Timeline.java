@@ -39,4 +39,8 @@ public class Timeline {
                 timelineEvent.getEvent().trigger();
         }
     }
+
+    public boolean isOver() {
+        return remainingEvents.isEmpty();
+    }
 }

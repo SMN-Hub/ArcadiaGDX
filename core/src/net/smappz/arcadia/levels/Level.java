@@ -45,4 +45,8 @@ public abstract class Level {
             }
         });
     }
+
+    public boolean isOver() {
+        return timeline.isOver() && army.isOver();
+    }
 }

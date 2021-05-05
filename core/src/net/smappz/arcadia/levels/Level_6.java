@@ -7,16 +7,16 @@ import net.smappz.arcadia.util.Route;
 import net.smappz.arcadia.util.RouteDriver;
 import net.smappz.arcadia.util.TimeEvent;
 
-public class Level_1 extends Level {
+public class Level_6 extends Level {
+
+    @Override
+    public String getTitle() {
+        return "Scroll invaders";
+    }
 
     @Override
     protected void buildTimeLine() {
         createEnemies();
-    }
-
-    @Override
-    public String getTitle() {
-        return "Vertical danger";
     }
 
     private void createEnemies() {
@@ -37,37 +37,37 @@ public class Level_1 extends Level {
         TimeEvent wave1 = new SquadronWave() {
             @Override
             public AirSquadron init() {
-                return new AirSquadron(army, middleLeft, Formation.Vertical, 1, 1, 3, 1);
+                return new AirSquadron(army, middleLeft, Formation.Vertical, 11, 11, 13, 11);
             }
         };
         TimeEvent wave2 = new SquadronWave() {
             @Override
             public AirSquadron init() {
-                return new AirSquadron(army, middleRight, Formation.Vertical, 1, 1, 3, 1);
+                return new AirSquadron(army, middleRight, Formation.Vertical, 11, 11, 13, 11);
             }
         };
         TimeEvent wave3 = new SquadronWave() {
             @Override
             public AirSquadron init() {
-                return new AirSquadron(army, middleLeft, Formation.Square2, 1, 1, 1, 1, 1, 1, 1, 1);
+                return new AirSquadron(army, middleLeft, Formation.Square2, 11, 11, 11, 11, 11, 11, 11, 11);
             }
         };
         TimeEvent wave4 = new SquadronWave() {
             @Override
             public AirSquadron init() {
-                return new AirSquadron(army, middleRight, Formation.Square2, 1, 1, 1, 1, 1, 1, 1, 1);
+                return new AirSquadron(army, middleRight, Formation.Square2, 11, 11, 11, 11, 11, 11, 11, 11);
             }
         };
         TimeEvent wave5 = new SquadronWave() {
             @Override
             public AirSquadron init() {
-                return new AirSquadron(army, middle, Formation.Square4, 1, 1, 1, 1, 1, 1, 1, 1);
+                return new AirSquadron(army, middle, Formation.Square4, 11, 11, 11, 11, 11, 11, 11, 11);
             }
         };
         TimeEvent waveH = new SquadronWave() {
             @Override
             public AirSquadron init() {
-                return new AirSquadron(army, horizontal, Formation.Horizontal, 2, 2);
+                return new AirSquadron(army, horizontal, Formation.Horizontal, 12, 12);
             }
         };
 

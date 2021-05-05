@@ -4,7 +4,8 @@ public enum Formation {
     Vertical,
     Horizontal,
     Square2,
-    Square4;
+    Square4,
+    Square5;
 
     public static final float DECAL_X = 90f;
     public static final float DECAL_Y = 110f;
@@ -23,6 +24,9 @@ public enum Formation {
                 break;
             case Square4:
                 square(4, r, index);
+                break;
+            case Square5:
+                square(5, r, index);
                 break;
         }
         return r;

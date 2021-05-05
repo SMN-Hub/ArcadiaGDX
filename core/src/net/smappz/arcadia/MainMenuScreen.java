@@ -14,12 +14,16 @@ import net.smappz.arcadia.actors.Scroller;
 import net.smappz.arcadia.levels.Level;
 import net.smappz.arcadia.levels.Level_1;
 import net.smappz.arcadia.levels.Level_2;
+import net.smappz.arcadia.levels.Level_3;
+import net.smappz.arcadia.levels.Level_4;
+import net.smappz.arcadia.levels.Level_5;
+import net.smappz.arcadia.levels.Level_6;
 
 import static net.smappz.arcadia.ArcadiaGame.RESOURCES;
 
 class MainMenuScreen extends AbstractScreen {
     private static final int TITLE_Y = 900;
-    private static final Level[] levels = new Level[] {new Level_1(), new Level_2()};
+    private static final Level[] levels = new Level[] {new Level_1(), new Level_2(), new Level_3(), new Level_4(), new Level_5(), new Level_6()};
 
     MainMenuScreen() {
 

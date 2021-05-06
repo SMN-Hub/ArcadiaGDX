@@ -2,10 +2,13 @@ package net.smappz.arcadia.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
+import net.smappz.arcadia.ArcadiaGame;
+import net.smappz.arcadia.GameListener;
 import net.smappz.arcadia.descriptors.PlaneDescriptor;
 
 public abstract class ShootableActor extends SpriteActor {
-    private int currentLife = 0;
+    private int currentLife;
+    private float lastShoot = 0f;
     protected final PlaneDescriptor descriptor;
 
     protected ShootableActor(float actorToSprite, float spriteScale, PlaneDescriptor descriptor) {
@@ -54,4 +57,20 @@ public abstract class ShootableActor extends SpriteActor {
     public PlaneDescriptor getDescriptor() {
         return descriptor;
     }
+
+    @Override
+    public void act (float delta) {
+        super.act(delta);
+
+        // shoot
+        if (descriptor.getShootId() != -1) {
+            lastShoot += delta;
+            if (lastShoot > descriptor.getShootFrequency()) {
+                GameListener listener = ArcadiaGame.INSTANCE.getListener();
+                listener.enemyShoot(descriptor.getShootId(), getPosition(), -90f);
+                lastShoot = 0;
+            }
+        }
+    }
+
 }

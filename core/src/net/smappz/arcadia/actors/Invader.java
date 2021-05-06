@@ -1,31 +1,32 @@
 package net.smappz.arcadia.actors;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import net.smappz.arcadia.ArcadiaGame;
-import net.smappz.arcadia.GameListener;
+import net.smappz.arcadia.util.Route;
+import net.smappz.arcadia.util.RouteDriver;
 
 import static net.smappz.arcadia.ArcadiaGame.INSTANCE;
 
 
 public class Invader extends ShootableActor {
 
-    private float lastShoot = 0f;
-    private final Vector2 startPoint;
+    private final RouteDriver driver;
 
     @SuppressWarnings("DefaultLocale")
-    Invader(int invader, Vector2 startPoint) {
+    Invader(int invader, Route route) {
         super(0.f, 0.3f, INSTANCE.getPlane(invader));
         setImage(ArcadiaGame.RESOURCES.getTextureRegion(String.format("invader%02d", invader-10)));
 
-        this.startPoint = startPoint;
-        restart();
+        driver = route.createDriver(this);
+        driver.setRotate(false);
+        reset();
     }
 
-    void restart() {
-        reset();
-        setPosition(startPoint);
+    @Override
+    public void reset() {
+        super.reset();
+        driver.start();
     }
 
     @Override
@@ -33,18 +34,14 @@ public class Invader extends ShootableActor {
         if (!isVisible())
             return;
 
-        // Position already updated bu InvaderSquadron
-        super.act(delta);
+        // update position
+        driver.act(delta, descriptor.getSpeed());
 
-        // shoot
-        if (descriptor.getShootId() != -1) {
-            lastShoot += delta;
-            if (lastShoot > descriptor.getShootFrequency()) {
-                GameListener listener = ArcadiaGame.INSTANCE.getListener();
-                listener.enemyShoot(descriptor.getShootId(), getPosition(), -90f);
-                lastShoot = 0;
-            }
+        if (isOut()) {
+            setVisible(false);
+            return;
         }
+        super.act(delta);
     }
 
     @Override

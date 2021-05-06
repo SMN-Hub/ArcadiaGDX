@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import net.smappz.arcadia.ArcadiaGame;
-import net.smappz.arcadia.GameListener;
 import net.smappz.arcadia.util.Driver;
 import net.smappz.arcadia.util.Route;
 
@@ -28,7 +27,6 @@ public class AirEnemy extends ShootableActor {
     private int destroyStep = -1;
     private float destroyDuration = -1;
     private final Driver driver;
-    private float lastShoot = 0f;
 
     @SuppressWarnings("DefaultLocale")
     AirEnemy(int plane, Route route) {
@@ -82,10 +80,10 @@ public class AirEnemy extends ShootableActor {
             setVisible(false);
             return;
         }
-        super.act(delta);
 
         // update position
         driver.act(delta, descriptor.getSpeed());
+        super.act(delta);
 
         // update destruction
         if (destroyDuration >= 0) {
@@ -114,15 +112,6 @@ public class AirEnemy extends ShootableActor {
             if (pitchDuration > TIME_TO_PITCH) {
                 updateFrame(Pitch.Flat);
                 pitchDuration = -1;
-            }
-        }
-        // shoot
-        if (descriptor.getShootId() != -1) {
-            lastShoot += delta;
-            if (lastShoot > descriptor.getShootFrequency()) {
-                GameListener listener = ArcadiaGame.INSTANCE.getListener();
-                listener.enemyHomingShoot(descriptor.getShootId(), getPosition());
-                lastShoot = 0;
             }
         }
     }

@@ -7,6 +7,8 @@ import net.smappz.arcadia.util.Route;
 import net.smappz.arcadia.util.RouteDriver;
 import net.smappz.arcadia.util.TimeEvent;
 
+import static net.smappz.arcadia.AbstractScreen.WIDTH;
+
 public class Level_6 extends Level {
 
     @Override
@@ -19,12 +21,13 @@ public class Level_6 extends Level {
         createEnemies();
     }
 
+    @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     private void createEnemies() {
         final Route horizontal = new Route();
-        horizontal.addPoint(-30, 1100).addPoint(750, 1100);
+        horizontal.addPoint(-60, 1100).addPoint(WIDTH + 60, 1100);
 
         final Route middle = new Route();
-        middle.addPoint(360, 1300).addPoint(360, -30);
+        middle.addPoint(WIDTH/2, 1300).addPoint(WIDTH/2, -30);
 
         final Route middleLeft = middle.clone();
         RouteDriver.translate(middleLeft, -3*Formation.DECAL_X, 0);
@@ -37,7 +40,7 @@ public class Level_6 extends Level {
         TimeEvent wave1 = new SquadronWave() {
             @Override
             public AirSquadron init() {
-                return new AirSquadron(army, middleLeft, Formation.Vertical, 11, 11, 13, 11);
+                return new AirSquadron(army, middleLeft, Formation.Horizontal, 11, 11, 13, 11);
             }
         };
         TimeEvent wave2 = new SquadronWave() {

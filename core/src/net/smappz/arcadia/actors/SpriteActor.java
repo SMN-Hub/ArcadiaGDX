@@ -61,7 +61,7 @@ public abstract class SpriteActor extends Actor {
         sprite.setCenter(position.x, position.y);
         // center to top-left corner
         Vector2 topLeftCoords = new Vector2(-getWidth() / 2, -getHeight() / 2);
-        topLeftCoords.rotate(getRotation());
+        topLeftCoords.rotateDeg(getRotation());
         setPosition(position.x + topLeftCoords.x, position.y + topLeftCoords.y);
     }
 

@@ -21,7 +21,7 @@ public class Route {
         return clone;
     }
 
-    public Driver createDriver(SpriteActor actor) {
+    public RouteDriver createDriver(SpriteActor actor) {
         return new RouteDriver(actor, this);
     }
 

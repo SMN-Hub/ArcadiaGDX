@@ -13,7 +13,7 @@ public class RouteDriver extends Driver {
 
     public RouteDriver(SpriteActor actor, Route route) {
         super(actor);
-        assert route.size() > 1;
+        assert route.size() > 0;
         this.route = route;
     }
 
@@ -30,7 +30,7 @@ public class RouteDriver extends Driver {
     @Override
     public void start() {
         actor.setPosition(route.getPoint(0));
-        targetIndex = 1;
+        targetIndex = route.size() > 1 ? 1 : -1;
         actor.setRotation(0);
         computeRotation();
     }

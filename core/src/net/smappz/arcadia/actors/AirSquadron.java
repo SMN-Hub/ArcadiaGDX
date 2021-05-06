@@ -19,7 +19,7 @@ public class AirSquadron extends Group implements Squadron {
         for (int l=0; l<planes.length; l++) {
             int plane = planes[l];
             Route r = formation.place(route, l);
-            ShootableActor ae = plane > 10 ? new Invader(plane, r.getPoint(0)) : new AirEnemy(plane, r);
+            ShootableActor ae = plane > 10 ? new Invader(plane, r) : new AirEnemy(plane, r);
             addEnemy(ae);
         }
     }

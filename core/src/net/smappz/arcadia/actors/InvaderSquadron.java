@@ -23,7 +23,7 @@ public class InvaderSquadron extends Group implements Squadron {
         for (int l=0; l<planes.length; l++) {
             int plane = planes[l];
             Route r = formation.place(route, l);
-            Invader inv = new Invader(plane, r.getPoint(0));
+            Invader inv = new Invader(plane, r);
             invaders.add(inv);
             army.addActor(inv);
             speed = Math.min(speed, inv.getDescriptor().getSpeed());

@@ -58,16 +58,15 @@ public abstract class ShootableActor extends SpriteActor {
         return descriptor;
     }
 
-    @Override
-    public void act (float delta) {
-        super.act(delta);
-
+    protected void autoShoot(float delta) {
         // shoot
         if (descriptor.getShootId() != -1) {
             lastShoot += delta;
             if (lastShoot > descriptor.getShootFrequency()) {
                 GameListener listener = ArcadiaGame.INSTANCE.getListener();
-                listener.enemyShoot(descriptor.getShootId(), getPosition(), -90f);
+                if (listener != null) {
+                    listener.enemyShoot(descriptor.getShootId(), getPosition(), -90f);
+                }
                 lastShoot = 0;
             }
         }

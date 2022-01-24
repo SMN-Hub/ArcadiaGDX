@@ -84,6 +84,7 @@ public class AirEnemy extends ShootableActor {
         // update position
         driver.act(delta, descriptor.getSpeed());
         super.act(delta);
+        autoShoot(delta);
 
         // update destruction
         if (destroyDuration >= 0) {

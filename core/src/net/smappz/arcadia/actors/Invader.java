@@ -42,6 +42,7 @@ public class Invader extends ShootableActor {
             return;
         }
         super.act(delta);
+        autoShoot(delta);
     }
 
     @Override
